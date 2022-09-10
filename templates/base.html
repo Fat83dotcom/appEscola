@@ -1,0 +1,18 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    {%include 'parciais/_head.html'%}
+    <title>Sistema Escolar - Escola de Churrasco</title>
+</head>
+
+<body>
+    {% include 'parciais/_header.html' %}
+    {% include 'parciais/_mensagens.html'%}
+    {% block conteudo%} {%endblock%}
+    {% include 'parciais/_footer.html'%}
+</body>
+<script src="{% static 'script.js'%}"></script>
+
+</html>

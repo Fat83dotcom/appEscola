@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block conteudo%}
+<table class="tabela">
+    <tr>
+        <th>CPF</th>
+        <th>Nome do Aluno</th>
+        <th>Sobrenome do Aluno</th>
+        <th>Código / Endereço</th>
+    </tr>
+    {%for dado in dadosJuntados%}
+    <tr>
+        <td>{{dado.cpf}}</td>
+        <td>{{dado.nome_aluno}}</td>
+        <td>{{dado.sobrenome_aluno}}</td>
+        <td>{{dado.endereco}} / {{dado.endereco.logradouro}}, {{dado.endereco.numero}}, {{dado.endereco.bairro}} </td>
+    </tr>
+    {%endfor%} 
+</table>
+{%endblock%}
+

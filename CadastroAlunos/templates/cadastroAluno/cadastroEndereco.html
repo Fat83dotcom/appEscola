@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{%block conteudo%}
+<main>
+    <section>
+        <fieldset>
+            <h1>Cadastrar Endereço</h1>
+            <h3>Data Hoje:</h3>
+            <h3>{{data}}</h3>
+            <form action="{% url 'cadastrar-endereco'%}" method="post">
+                {% csrf_token %}
+                <div class="formulario">
+                    <table class="tabela">
+                        {{formularioEndereco}}
+                    </table>
+                    <button type="submit">Cadastrar Endereço</button>
+                </div>
+            </form>
+        </fieldset>
+    </section>
+</main>
+{% endblock %}

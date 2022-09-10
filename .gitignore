@@ -1,0 +1,6 @@
+Pipfile
+Pipfile.lock
+alteracoes-db.sql
+*/__pycache__
+cadastro_simples/settings.py
+.mypy_cache/

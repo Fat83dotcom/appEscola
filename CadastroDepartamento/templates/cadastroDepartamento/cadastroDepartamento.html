@@ -1,0 +1,18 @@
+{%extends 'base.html'%}
+{%block conteudo%}
+<main>
+    <section>
+        <fieldset>
+            <h1>Cadastrar Departamentos</h1>
+            <form action="{% url 'cadastrar-departamento'%}" method="post">
+                {% csrf_token %}
+                <div class="formulario">
+                    <label for="codCurso">Nome Do Departamento:</label>
+                    <input type="text" name="codCurso" id="codCurso" required>
+                    <button type="submit">Cadastrar Departamento</button>
+                </div>
+            </form>
+        </fieldset>
+    </section>
+</main>
+{% endblock %}

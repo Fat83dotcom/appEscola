@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{%block conteudo%}
+<main>
+    <section>
+        <fieldset>
+            <h1>Matricular Aluno</h1>
+            <h3>Data da Matrícula:</h3>
+            <h3>{{data}}</h3>
+            <form action="{% url 'cadastrar-matricula'%}" method="post">
+                {% csrf_token %}
+                <div class="formulario">
+                    <table class="tabela">
+                        {{formMatricula}}
+                    </table>
+                    <button type="submit">Matricular</button>
+                </div>
+            </form>
+        </fieldset>
+    </section>
+</main>
+{% endblock %}

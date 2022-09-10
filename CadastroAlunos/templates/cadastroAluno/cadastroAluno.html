@@ -1,0 +1,46 @@
+{%extends 'base.html'%}
+{%block conteudo%}
+<main>
+    <section>
+        <fieldset>
+            <h1>Cadastrar Aluno</h1>
+            <h3>Data Hoje:</h3>
+            <h3>{{data}}</h3>
+            <form action="{% url 'cadastrar-aluno'%}" method="post">
+                {% csrf_token %}
+                <div class="formulario ">
+                    <table class="tabela">
+                        {{formulario}}
+                    </table>
+                    <div class="alinharBtn">
+                        <button type="submit">Cadastrar Aluno</button>
+                        <label for="mostraEnd">Mostrar Endereços</label>
+                        <input type="checkbox" name="mostra" id="mostraEnd">
+                     </div>
+                </div>
+            </form>
+        </fieldset>
+    </section>
+    <section class="mostraEndereco" id="mostra">
+        <table class="tabela">
+            <tr>
+                <th>Código Endereço</th>
+                <th>logradouro</th>
+                <th>Número</th>
+                <th>Bairro</th>
+                <th>Complemento</th>
+            </tr>
+            {%for dado in dadosEnd%}
+            <tr>
+                <td>{{dado.cod_end}}</td>
+                <td>{{dado.logradouro}}</td>
+                <td>{{dado.numero}}</td>
+                <td>{{dado.bairro}}</td>
+                <td>{{dado.complemento}}</td>
+            </tr>
+            {%endfor%} 
+        </table>
+        <p>Não encontrou o endereço? Cadastrar um endereço <a href="{% url 'cadastrar-endereco'%}">aqui</a></p>
+    </section>
+</main>
+{% endblock %}
