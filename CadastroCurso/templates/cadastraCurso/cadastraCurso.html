@@ -4,6 +4,8 @@
     <section>
         <fieldset>
             <h1>Cadastrar Cursos</h1>
+            <h3>Data Hoje:</h3>
+            <h3>{{data}}</h3>
             <form action="{% url 'cadastra-curso'%}" method="post">
                 {% csrf_token %}
                 <div class="formulario">
