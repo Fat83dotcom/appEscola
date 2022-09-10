@@ -7,10 +7,9 @@
             <form action="{% url 'cadastra-curso'%}" method="post">
                 {% csrf_token %}
                 <div class="formulario">
-                    <label for="nomeCurso">Nome Do Curso:</label>
-                    <input type="text" name="nomeCurso" id="nomeCurso" required>
-                    <label for="codDepartamento">Cod Departamento:</label>
-                    <input type="text" name="codDepartamento" id="codDepartamento" required>
+                    <table class="tabela">
+                        {{formCurso}}
+                    </table>
                     <button type="submit">Cadastrar Curso</button>
                 </div>
             </form>
