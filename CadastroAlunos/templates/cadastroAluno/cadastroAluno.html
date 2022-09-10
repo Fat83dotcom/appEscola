@@ -1,4 +1,5 @@
 {%extends 'base.html'%}
+{%load static %}
 {%block conteudo%}
 <main>
     <section>
@@ -42,5 +43,6 @@
         </table>
         <p>Não encontrou o endereço? Cadastrar um endereço <a href="{% url 'cadastrar-endereco'%}">aqui</a></p>
     </section>
+    <script src="{% static 'script_cadastro_aluno.js'%}"></script>
 </main>
 {% endblock %}

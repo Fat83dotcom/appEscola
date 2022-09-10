@@ -1,3 +1,7 @@
-from django.db import models
+from cadastros.models import Curso
+from django.forms import ModelForm
 
-# Create your models here.
+
+class FormCurso(ModelForm):
+    class Meta:
+        pass
