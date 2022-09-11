@@ -1,0 +1,20 @@
+@media all and (max-width: 800px){
+    nav{
+        flex-direction: column;
+        height: auto;
+    }
+    .menu{
+        flex-direction: column;
+    }
+    .logo{
+        margin-top: 30px;
+    }
+    ul{
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    li:hover ul{
+        top: 0%;
+        left: 120px;
+    }
+}
