@@ -1,2 +1,3 @@
-#!usr/bin/bash
+#!/usr/bin/bash
 git pull origin
+#coment
