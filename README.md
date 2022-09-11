@@ -4,16 +4,16 @@
 
 **Tecnologias usadas:**
 
-> HTML 5
-> CSS 3
-> Java Script
-> Python==3.10.7
-> Django==4.1.1
-> PostgreSQL==14
-> gunicorn==20.1.0
-> Nginx==1.18.0 (Ubuntu)
-> Ubuntu==22.04 LTS (Servidor e desenvolvimento)
-> Hospedado em AWS EC2
+- HTML 5
+- CSS 3
+- Java Script
+- Python==3.10.7
+- Django==4.1.1
+- PostgreSQL==14
+- gunicorn==20.1.0
+- Nginx==1.18.0 (Ubuntu)
+- Ubuntu==22.04 LTS (Servidor e desenvolvimento)
+- Hospedado em AWS EC2
 
 O site pode ser acessado [Aqui](https://www.appescola.tk/).
 
