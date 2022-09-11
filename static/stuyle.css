@@ -183,14 +183,15 @@ fieldset h3{
 }
 .formulario label,
 .formulario input,
-.formulario button{
+.formulario button,
+.formulario select{
   margin: 10px;
 }
 .formulario label {
   box-shadow: 0px 2px var(--branco);
 }
 .formulario input,
-.formulario select {
+.formulario select{
   height: 5vh;
   width: 110vh;
   font-size: 3vh;

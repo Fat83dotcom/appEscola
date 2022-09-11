@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-
 from cadastros import models
 from .models import FormCurso
 from django.contrib import messages
-from cadastros.models import Departamento
 
 
 def verificadorNumerico(string: str) -> bool:

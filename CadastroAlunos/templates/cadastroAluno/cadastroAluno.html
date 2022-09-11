@@ -34,10 +34,10 @@
             {%for dado in dadosEnd%}
             <tr>
                 <td>{{dado.cod_end}}</td>
-                <td>{{dado.logradouro}}</td>
+                <td>{{dado.logradouro.title}}</td>
                 <td>{{dado.numero}}</td>
-                <td>{{dado.bairro}}</td>
-                <td>{{dado.complemento}}</td>
+                <td>{{dado.bairro.title}}</td>
+                <td>{{dado.complemento.title}}</td>
             </tr>
             {%endfor%} 
         </table>

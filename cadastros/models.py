@@ -49,7 +49,7 @@ class Curso(models.Model):
         'Departamento', models.DO_NOTHING, db_column='cod_dep')
 
     def __str__(self) -> str:
-        return self.nome_c
+        return f'{self.cod_c} / {self.nome_c}'
 
 
 class Departamento(models.Model):
