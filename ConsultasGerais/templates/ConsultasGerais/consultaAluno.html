@@ -6,14 +6,14 @@
         <th>CPF</th>
         <th>Nome do Aluno</th>
         <th>Sobrenome do Aluno</th>
-        <th>Código / Endereço</th>
+        <th>Endereço</th>
     </tr>
     {%for dado in dadosJuntados%}
     <tr>
         <td>{{dado.cpf}}</td>
         <td>{{dado.nome_aluno}}</td>
         <td>{{dado.sobrenome_aluno}}</td>
-        <td>{{dado.endereco}} / {{dado.endereco.logradouro}}, {{dado.endereco.numero}}, {{dado.endereco.bairro}} </td>
+        <td>{{dado.endereco}}</td>
     </tr>
     {%endfor%} 
 </table>
