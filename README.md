@@ -19,8 +19,8 @@ O site pode ser acessado [Aqui](https://www.appescola.tk/).
 
 A finalidade deste site é *meramente educativa* e me serviu como *introdução* à todas as tecnologias citadas acima.
 
-***Encontrou uma brecha de segurança ou bug ?
-Por favor, me reporte o ocorrido escrevendo para:**_
+**Encontrou uma _brecha de segurança ou bug ?_
+Por favor, me reporte o ocorrido escrevendo para:**
 
 fernando.quimic@gmail.com
 
