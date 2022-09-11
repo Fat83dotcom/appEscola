@@ -4,12 +4,12 @@
         <div class="logo">
             <h1>App Escola</h1>
         </div>
-        <div>
+        <div class="menuDropDown">
             <ul>
                 <li><a href="{%url 'index'%}">Home</a></li>
                 {% if 'login' not in request.path %}
                     <li><a href="#">Cadastros</a>
-                        <ul>
+                        <ul class="primeiraUl">
                             <li class="sNivel"><a href="#">Aluno</a>
                                 <ul>
                                     <li><a href="{%url 'cadastrar-aluno'%}">Aluno</a></li>
