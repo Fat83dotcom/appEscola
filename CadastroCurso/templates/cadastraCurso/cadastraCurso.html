@@ -1,21 +1,43 @@
-{%extends 'base.html'%}
-{%block conteudo%}
+{%extends 'base.html'%} {%load static%} {%block conteudo%}
 <main>
-    <section>
-        <fieldset>
-            <h1>Cadastrar Cursos</h1>
-            <h3>Data Hoje:</h3>
-            <h3>{{data}}</h3>
-            <form action="{% url 'cadastra-curso'%}" method="post">
-                {% csrf_token %}
-                <div class="formulario">
-                    <table class="tabela">
-                        {{formCurso}}
-                    </table>
-                    <button type="submit">Cadastrar Curso</button>
-                </div>
-            </form>
-        </fieldset>
-    </section>
+  <section>
+    <fieldset>
+      <h1>Cadastrar Cursos</h1>
+      <h3>Data Hoje:</h3>
+      <h3>{{data}}</h3>
+      <form action="{% url 'cadastra-curso'%}" method="post">
+        {% csrf_token %}
+        <div class="formulario">
+          <table class="tabela">
+            {{formCurso}}
+          </table>
+          <div class="alinharBtn">
+            <button type="submit">Cadastrar Curso</button>
+            <label for="mostradados">Mostrar Departamentos</label>
+            <input type="checkbox" name="mostra" id="mostraDados" />
+          </div>
+        </div>
+      </form>
+    </fieldset>
+  </section>
+  <section class="mostraDados" id="mostra">
+    <table class="tabela">
+      <tr>
+        <th>Código Departamento</th>
+        <th>Nome Departamento</th>
+      </tr>
+      {%for dado in dadosDep%}
+      <tr>
+        <td>{{dado.cod_dep}}</td>
+        <td>{{dado.nome_dep}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+    <p>
+      Não encontrou o departamento? Cadastrar um departamento
+      <a href="{% url 'cadastrar-departamento'%}">aqui</a>
+    </p>
+  </section>
+  <script src="{% static 'script_cadastros.js'%}"></script>
 </main>
 {% endblock %}

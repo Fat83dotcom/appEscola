@@ -9,7 +9,7 @@ class Aluno(models.Model):
         'Endereco', on_delete=models.DO_NOTHING, db_column='endereco')
 
     def __str__(self) -> str:
-        return str(self.cpf)
+        return f'{self.cpf}: {self.nome_aluno.title()} {self.sobrenome_aluno.title()}'
 
 
 class Endereco(models.Model):
@@ -20,7 +20,7 @@ class Endereco(models.Model):
     complemento = models.CharField(max_length=50, blank=True, null=True, default='ND')
 
     def __str__(self) -> str:
-        return str(self.cod_end)
+        return f'{self.logradouro.title()}, {self.numero}, {self.bairro.title()}'
 
 
 class AlunoDisciplina(models.Model):
@@ -49,7 +49,7 @@ class Curso(models.Model):
         'Departamento', models.DO_NOTHING, db_column='cod_dep')
 
     def __str__(self) -> str:
-        return str(self.cod_c)
+        return self.nome_c
 
 
 class Departamento(models.Model):
@@ -57,7 +57,7 @@ class Departamento(models.Model):
     nome_dep = models.CharField(unique=True, max_length=100)
 
     def __str__(self) -> str:
-        return str(self.cod_dep)
+        return str(self.nome_dep)
 
 
 class Disciplina(models.Model):

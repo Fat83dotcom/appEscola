@@ -16,13 +16,13 @@
                     <div class="alinharBtn">
                         <button type="submit">Cadastrar Aluno</button>
                         <label for="mostraEnd">Mostrar Endereços</label>
-                        <input type="checkbox" name="mostra" id="mostraEnd">
-                     </div>
+                        <input type="checkbox" name="mostra" id="mostraDados">
+                    </div>
                 </div>
             </form>
         </fieldset>
     </section>
-    <section class="mostraEndereco" id="mostra">
+    <section class="mostraDados" id="mostra">
         <table class="tabela">
             <tr>
                 <th>Código Endereço</th>
@@ -43,6 +43,6 @@
         </table>
         <p>Não encontrou o endereço? Cadastrar um endereço <a href="{% url 'cadastrar-endereco'%}">aqui</a></p>
     </section>
-    <script src="{% static 'script_cadastro_aluno.js'%}"></script>
+    <script src="{% static 'script_cadastros.js'%}"></script>
 </main>
 {% endblock %}

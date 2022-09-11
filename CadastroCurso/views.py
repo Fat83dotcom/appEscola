@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+
+from cadastros import models
 from .models import FormCurso
 from django.contrib import messages
+from cadastros.models import Departamento
 
 
 def verificadorNumerico(string: str) -> bool:
@@ -15,11 +18,13 @@ def verificadorNumerico(string: str) -> bool:
 @login_required(redirect_field_name='login-system')
 def cadastraCurso(request):
     data = datetime.today()
+    dadosDepartamento = models.Departamento.objects.order_by('cod_dep')
     if request.method != 'POST':
         formularioCurso = FormCurso(request.POST)
         return render(request, 'cadastraCurso/cadastraCurso.html', {
             'data': data,
-            'formCurso': formularioCurso
+            'formCurso': formularioCurso,
+            'dadosDep': dadosDepartamento,
         })
     else:
         formularioCurso = FormCurso(request.POST)
