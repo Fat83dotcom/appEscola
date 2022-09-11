@@ -1,7 +1,8 @@
 const dados = document.getElementById('mostra')
-const checkEnd = document.getElementById('mostraEnd')
+dados.style.display = 'none'
+const checkDados = document.getElementById('mostraDados')
 setInterval(() => {
-    if (checkEnd.checked) {
+    if (checkDados.checked) {
         dados.style.display = 'block'
     }
     else{

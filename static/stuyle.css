@@ -1,9 +1,15 @@
 :root {
-  --corPrimeiroNivel: rgb(#18db36);
-  --corSegundoNivel: rgb(#70ff86);
-  --corHover: rgb(#85ab8b);
-  --corFonteEscura: rgb(#8f1935);
-  --corFonteClara: rgb(#d18899);
+  --cor-PrimeiroNivel: #18db36;
+  --cor-SegundoNivel: #70ff86;
+  --cor-Hover: #85ab8b;
+  --cor-FonteEscura: #8f1935;
+  --cor-FonteClara: #d18899;
+  --preto: #000;
+  --branco: #fff;
+  --background-msg-sucesso: #1cdf2c;
+  --background-msg-atencao: #dad60e;
+  --background-msg-erro: #ec5555;
+
 }
 body {
   display: flex;
@@ -29,7 +35,7 @@ footer {
   align-items: center;
   height: 50%;
   color: #8f1935;
-  background-color: #d18899;
+  background-color: var(--cor-FonteClara);
 }
 .logo h1 {
   text-align: center;
@@ -41,7 +47,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background-color: black;
+  background-color: var(--preto);
 }
 ul {
   display: flex;
@@ -61,7 +67,7 @@ li {
   right: 20px;
 }
 li:hover {
-  background-color: #70ff86;
+  background-color: var(--cor-SegundoNivel);
 }
 .menu a {
   font-size: small;
@@ -71,14 +77,14 @@ ul a {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: #18db36;
+  color: var(--cor-PrimeiroNivel);
   width: 120px;
   height: 50px;
   text-align: center;
   line-height: 50px;
 }
 a:hover {
-  color: #000;
+  color: var(--preto);
 }
 li:hover ul {
   display: flex;
@@ -88,7 +94,7 @@ li:hover ul {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #000;
+  background-color: var(--preto);
   width: 100px;
 }
 li a {
@@ -105,6 +111,28 @@ main {
   min-height: 500px;
   width: 90%;
 }
+.mostraDados,
+.mostraDados table,
+.mostraDados p{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--branco);
+}
+.mostraDados p{
+  background-color: var(--cor-FonteEscura);
+  padding: 5px;
+  
+}
+.mostraDados a{
+  text-decoration: none;
+  color: var(--preto);
+  transition: all 500ms ease-in-out;
+}
+.mostraDados a:hover{
+  color: var(--cor-FonteClara);
+}
 li.sNivel:hover ul {
   display: flex;
   align-items: center;
@@ -115,7 +143,7 @@ li.sNivel:hover ul {
 .finalPagina {
   width: 100%;
   height: 10vh;
-  background-color: #85ab8b;
+  background-color: var(--cor-Hover);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -128,9 +156,9 @@ li.sNivel:hover ul {
   flex-direction: column;
 }
 fieldset {
-  border: 1px solid #18db36;
-  background-color: #fff;
-  box-shadow: #18db36 2px 2px 2px;
+  border: 1px solid var(--cor-PrimeiroNivel);
+  background-color: var(--branco);
+  box-shadow: var(--cor-PrimeiroNivel) 2px 2px 2px;
   margin: 10px;
   display: flex;
   align-items: center;
@@ -146,35 +174,35 @@ fieldset h3{
   margin: 10px;
 }
 .formulario {
-  color: #fff;
-  background-color: #8f1935;
+  color: var(--branco);
+  background-color: var(--cor-FonteEscura);
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 2px 2px #d18899;
+  box-shadow: 2px 2px 2px var(--cor-FonteClara);
   border-collapse: collapse;
 }
 .formulario label,
-input,
-button {
+.formulario input,
+.formulario button{
   margin: 10px;
 }
 .formulario label {
-  box-shadow: 0px 2px #fff;
+  box-shadow: 0px 2px var(--branco);
 }
-.formulario input {
+.formulario input,
+.formulario select {
   height: 5vh;
   width: 110vh;
-  font-size: 5vh;
-  text-transform: capitalize;
+  font-size: 3vh;
 }
 .formulario button {
-  background-color: #70ff86;
+  background-color: var(--cor-SegundoNivel);
   height: 5vh;
   transition: all 500ms ease-in-out;
 }
 .formulario button:hover {
-  color: #8f1935;
-  background-color: #d18899;
+  color: var(--cor-FonteEscura);
+  background-color: var(--cor-FonteClara);
 }
 .msg_sucesso {
   display: flex;
@@ -182,8 +210,8 @@ button {
   align-items: center;
   height: 50px;
   width: 100%;
-  background-color: rgb(28, 223, 44);
-  border: 2px solid #fff;
+  background-color: var(--background-msg-sucesso);
+  border: 2px solid var(--branco);
   padding: 10px;
 }
 .msg_alerta {
@@ -192,8 +220,8 @@ button {
   align-items: center;
   height: 50px;
   width: 100%;
-  border: 2px solid #fff;
-  background-color: rgb(218, 214, 14);
+  border: 2px solid var(--branco);
+  background-color: var(--background-msg-atencao);
   padding: 10px;
 }
 .msg_erro {
@@ -202,8 +230,8 @@ button {
   align-items: center;
   height: 50px;
   width: 100%;
-  border: 2px solid #fff;
-  background-color: rgb(236, 85, 85);
+  border: 2px solid var(--branco);
+  background-color: var(--background-msg-erro);
   padding: 10px;
 }
 .tabela{
@@ -212,10 +240,10 @@ button {
 table th,
 table tr,
 table td{
-  background-color: #8f1935;
+  background-color: var(--cor-FonteEscura);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  border: 3px solid #000;
+  border: 3px solid var(--preto);
   padding: 5px;
   position:static;
 }
