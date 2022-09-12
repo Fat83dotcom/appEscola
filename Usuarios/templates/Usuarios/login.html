@@ -1,7 +1,7 @@
 {%extends 'base.html'%}
 {%block conteudo%}
 
-<main>
+<main class="mainLogin">
     {% include 'parciais/_mensagens.html'%}
     <h1>Faça login para acessar o sistema !</h1>
     <section>
@@ -9,7 +9,7 @@
             <h1>Login</h1>
             <h3>Hoje:</h3>
             <h3>{{data}}</h3>
-            <form action="{% url 'login-system'%}" method="post">
+            <form class="formLogin" action="{% url 'login-system'%}" method="post">
                 {% csrf_token %}
                 <div class="formulario ">
                     <label for="nomeUsuario">Nome de Usuário:</label>
