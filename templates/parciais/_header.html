@@ -1,10 +1,16 @@
 {%load static%}
 <header>
     <nav class="menu">
+
         <div class="logo">
             <h1>App Escola</h1>
         </div>
-        <div class="menuDropDown">
+
+        <button id="navBtn" class="navBtn" onclick="openNav()">
+            <i class="fa-solid fa-bars fa-2x"></i>
+        </button>
+        
+        <div id="drop" class="menuDropDown">
             <ul>
                 <li><a href="{%url 'index'%}">Home</a></li>
                 {% if 'login' not in request.path %}
@@ -61,6 +67,12 @@
                 {%endif%}
                 <li><a href="#">Informações</a></li>
             </ul>
+            <div>
+                <a href="javascript:void(0)" id="closeBtn" class="closeBtn" onclick="closeNav()">&times;</a>
+            </div>
         </div>
+        
+        
     </nav>
+    <script src="{%static 'script_btn_sandwich.js'%}"></script>
 </header>
