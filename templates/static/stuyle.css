@@ -11,6 +11,8 @@
   --background-msg-erro: #ec5555;
 }
 body {
+  background-image: url("imagem_fundo.jpeg");
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,8 +23,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-image: url("imagem_fundo.jpeg");
-  background-size: cover;
 }
 header,
 footer {
@@ -172,7 +172,7 @@ fieldset {
   border: 1px solid var(--cor-PrimeiroNivel);
   background-color: var(--branco);
   box-shadow: var(--cor-PrimeiroNivel) 2px 2px 2px;
-  margin: 10px;
+  /* margin: 10px; */
   width: 90%;
 }
 fieldset h1{
@@ -251,6 +251,7 @@ fieldset h3{
   justify-content: center;
   border-collapse: collapse;
   width: auto;
+  font-size: 18px;
 }
 table th,
 table tr,
@@ -259,7 +260,7 @@ table td{
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   border: 3px solid var(--preto);
-  padding: 5px;
+  /* padding: 5px; */
   position:static;
 }
 table ul, 
