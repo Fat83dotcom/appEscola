@@ -122,15 +122,17 @@ main {
 .mostraDados table,
 .mostraDados p{
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  border-collapse: collapse;
+  width: auto;
   color: var(--branco);
 }
 .mostraDados p{
   background-color: var(--cor-FonteEscura);
   padding: 5px;
-  
+  text-align: center;
 }
 .mostraDados a{
   text-decoration: none;
@@ -244,7 +246,11 @@ fieldset h3{
   padding: 10px;
 }
 .tabela{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-collapse: collapse;
+  width: auto;
 }
 table th,
 table tr,
@@ -297,7 +303,6 @@ table li{
   text-decoration: none;
   color: var(--cor-FonteClara);
   transition: all 200ms ease-in-out;
-
 }
 #closeBtn:hover{
   margin: 0;
