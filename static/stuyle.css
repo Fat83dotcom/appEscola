@@ -184,6 +184,25 @@ fieldset h3{
   text-align: center;
   margin: 10px;
 }
+.mainLogin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mainLogin h1{
+  background-color: var(--cor-FonteClara);
+  text-align: center;
+  font-size: 26px;
+  width: 90%;
+  padding: 5px;
+}
+.formLogin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  font-size: 18px;
+}
 .formulario {
   color: var(--branco);
   background-color: var(--cor-FonteEscura);
@@ -191,6 +210,7 @@ fieldset h3{
   flex-direction: column;
   box-shadow: 2px 2px 2px var(--cor-FonteClara);
   border-collapse: collapse;
+  width: 90%;
 }
 .formulario label,
 .formulario input,
@@ -216,34 +236,31 @@ fieldset h3{
   background-color: var(--cor-FonteClara);
 }
 .msg_sucesso {
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
   width: 100%;
   background-color: var(--background-msg-sucesso);
-  border: 2px solid var(--branco);
-  padding: 10px;
 }
 .msg_alerta {
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
   width: 100%;
-  border: 2px solid var(--branco);
   background-color: var(--background-msg-atencao);
-  padding: 10px;
 }
 .msg_erro {
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
   width: 100%;
-  border: 2px solid var(--branco);
   background-color: var(--background-msg-erro);
-  padding: 10px;
 }
 .tabela{
   display: flex;
@@ -316,6 +333,8 @@ table li{
   transition: all 200ms ease-in-out;
   color: var(--cor-FonteEscura);
 }
-.msgCss{
+#msgCss{
   width: 100%;
+  padding: 0;
+  margin: 0;
 }
