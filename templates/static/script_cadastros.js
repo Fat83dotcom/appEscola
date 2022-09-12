@@ -3,7 +3,7 @@ dados.style.display = 'none'
 const checkDados = document.getElementById('mostraDados')
 setInterval(() => {
     if (checkDados.checked) {
-        dados.style.display = 'block'
+        dados.style.display = 'flex'
     }
     else{
         dados.style.display = 'none'

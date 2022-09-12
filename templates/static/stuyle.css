@@ -118,6 +118,13 @@ main {
   min-height: 500px;
   width: 100%;
 }
+main+section{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  background-color: var(--preto);
+}
 .mostraDados,
 .mostraDados table,
 .mostraDados p{
@@ -126,12 +133,11 @@ main {
   align-items: center;
   justify-content: center;
   border-collapse: collapse;
-  width: auto;
+  width: 100%;
   color: var(--branco);
 }
 .mostraDados p{
   background-color: var(--cor-FonteEscura);
-  padding: 5px;
   text-align: center;
 }
 .mostraDados a{
@@ -172,8 +178,7 @@ fieldset {
   border: 1px solid var(--cor-PrimeiroNivel);
   background-color: var(--branco);
   box-shadow: var(--cor-PrimeiroNivel) 2px 2px 2px;
-  /* margin: 10px; */
-  width: 90%;
+  margin: 0;
 }
 fieldset h1{
   text-align: center;
@@ -204,10 +209,12 @@ fieldset h3{
   font-size: 18px;
 }
 .formulario {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   color: var(--branco);
   background-color: var(--cor-FonteEscura);
-  display: flex;
-  flex-direction: column;
   box-shadow: 2px 2px 2px var(--cor-FonteClara);
   border-collapse: collapse;
   width: 90%;
@@ -215,6 +222,7 @@ fieldset h3{
 .formulario label,
 .formulario input,
 .formulario button{
+  width: 90%;
   margin: 10px;
 }
 .formulario label {
