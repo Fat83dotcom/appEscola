@@ -28,7 +28,7 @@
   }
   fieldset h1 {
     font-size: 18px;
-    width: 60%;
+    width: 80%;
   }
   .formulario label,
   .formulario input,
@@ -47,4 +47,8 @@
     padding: 0;
     font-size: 12px;
   }
+}
+.tabela input,
+select{
+  width: 80%;
 }

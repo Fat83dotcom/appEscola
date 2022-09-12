@@ -1,51 +1,54 @@
 @media all and (max-width: 800px) {
-    nav {
-      flex-direction: column;
-      height: auto;
-      justify-content: space-around;
-    }
-    #drop {
-      display: none;
-      font-size: 20px;
-      width: 100%;
-      justify-content: space-between;
-      margin-right: 20px;
-      overflow-x: scroll;
-    }
-    .navBtn {
-      margin: 30px 0 30px 0;
-    }
-    .logo {
-      margin-top: 30px;
-    }
-    ul {
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-    li:hover ul {
-      top: 0%;
-      left: 120px;
-    }
-    fieldset h1 {
-      font-size: 18px;
-      width: 60%;
-    }
-    .formulario label,
-    .formulario input,
-    .formulario button {
-      font-size: 10px;
-    }
-    table th,
-    table tr,
-    table td {
-      font-size: 18px;
-      margin: 0;
-    }
-    table ul,
-    table li {
-      margin: 0;
-      padding: 0;
-      font-size: 12px;
-    }
+  nav {
+    flex-direction: column;
+    height: auto;
+    justify-content: space-around;
   }
-  
+  #drop {
+    display: none;
+    font-size: 20px;
+    width: 100%;
+    justify-content: space-between;
+    margin-right: 20px;
+    overflow-x: scroll;
+  }
+  .navBtn {
+    margin: 30px 0 30px 0;
+  }
+  .logo {
+    margin-top: 30px;
+  }
+  ul {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  li:hover ul {
+    top: 0%;
+    left: 120px;
+  }
+  fieldset h1 {
+    font-size: 18px;
+    width: 80%;
+  }
+  .formulario label,
+  .formulario input,
+  .formulario button {
+    font-size: 10px;
+  }
+  table th,
+  table tr,
+  table td {
+    font-size: 18px;
+    margin: 0;
+  }
+  table ul,
+  table li {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+  }
+}
+.tabela input,
+select{
+  width: 80%;
+}
