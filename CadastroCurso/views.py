@@ -46,10 +46,13 @@ def cadastraGrade(request):
         })
     else:
         formularioGrade = FormGrade(request.POST)
-        if formularioGrade.is_valid():
+        try:
             formularioGrade.save()
             mensagens(request, 'success', mensagensMaisUsadas['sucesso'])
             return redirect('cadastra-grade')
-        else:
-            mensagens(request, 'error', mensagensMaisUsadas['falha'])
-            return redirect('cadastra-grade')
+        except ValueError as erro:
+            mensagens(request, 'error', erro)
+            return render(request, 'cadastraCurso/cadastraGrade.html', {
+                'formGrade': formularioGrade,
+                'data': dataServidor(),
+            })

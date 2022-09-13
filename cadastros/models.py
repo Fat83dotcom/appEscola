@@ -22,6 +22,9 @@ class Endereco(models.Model):
     def __str__(self) -> str:
         return f'{self.logradouro.title()}, {self.numero}, {self.bairro.title()}'
 
+    class Meta:
+        unique_together = ['logradouro', 'numero', 'bairro']
+
 
 class AlunoDisciplina(models.Model):
     cpf = models.OneToOneField(
@@ -72,9 +75,9 @@ class Disciplina(models.Model):
 
 class Grade(models.Model):
     id_grade = models.AutoField(primary_key=True)
-    cod_curso = models.OneToOneField(
+    cod_curso = models.ForeignKey(
         'Curso', models.DO_NOTHING, db_column='cod_curso', null=False)
-    cod_disciplina = models.OneToOneField(
+    cod_disciplina = models.ForeignKey(
         'Disciplina', models.DO_NOTHING, db_column='cod_disciplina', null=False)
 
     def __str__(self) -> str:
@@ -111,3 +114,7 @@ class Professor(models.Model):
 
     def __str__(self) -> str:
         return str(self.matricula_prof)
+
+
+class Teste(models.Model):
+    testi = models.CharField(max_length=10)

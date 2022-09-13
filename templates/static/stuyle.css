@@ -237,7 +237,7 @@ fieldset form{
 .formulario select {
   height: 30px;
   width: 90%;
-  font-size: 12px;
+  font-size: 18px;
 }
 .formulario select{
   display: flex;
