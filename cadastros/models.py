@@ -67,7 +67,7 @@ class Disciplina(models.Model):
         'Professor', models.DO_NOTHING, db_column='matricula_prof')
 
     def __str__(self) -> str:
-        return str(self.cod_d)
+        return f'{self.cod_d} / {self.nome_disciplina}'
 
 
 class Grade(models.Model):
