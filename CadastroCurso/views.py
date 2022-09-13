@@ -51,5 +51,5 @@ def cadastraGrade(request):
             mensagens(request, 'success', mensagensMaisUsadas['sucesso'])
             return redirect('cadastra-grade')
         else:
-            mensagens(request, 'error', mensagensMaisUsadas['sucesso'])
-            redirect('cadastra-grade')
+            mensagens(request, 'error', mensagensMaisUsadas['falha'])
+            return redirect('cadastra-grade')
