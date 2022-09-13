@@ -306,11 +306,12 @@ table li{
 }
 .alinharBtn{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 .alinharBtn button{
-  width: 90%;
+  width: 70%;
 }
 .alinharBtn input{
   width: 10%;
@@ -318,6 +319,7 @@ table li{
 .alinharBtn label{
   text-align: center;
   font-size: 13px;
+  width: 20%;
 }
 .navBtn{
   background-color: var(--cor-FonteEscura);
