@@ -1,51 +1,55 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from datetime import datetime
 from cadastros import models
-from .models import FormCurso
-from django.contrib import messages
-
-
-def verificadorNumerico(string: str) -> bool:
-    for letra in string:
-        if letra.isdigit():
-            return False
-    return True
+from .models import FormCurso, FormGrade
+from funcoesUsoGeral import dataServidor, verificadorNumerico, \
+    mensagens, mensagensMaisUsadas
 
 
 @login_required(redirect_field_name='login-system')
 def cadastraCurso(request):
-    data = datetime.today()
     dadosDepartamento = models.Departamento.objects.order_by('cod_dep')
     if request.method != 'POST':
         formularioCurso = FormCurso(request.POST)
         return render(request, 'cadastraCurso/cadastraCurso.html', {
-            'data': data,
+            'data': dataServidor(),
             'formCurso': formularioCurso,
             'dadosDep': dadosDepartamento,
         })
     else:
         formularioCurso = FormCurso(request.POST)
-
         campoNome: str = request.POST.get('nome_c')
-
         if formularioCurso.is_valid():
             if not verificadorNumerico(campoNome):
-                messages.error(request, 'O nome do curso não pode conter números')
+                mensagens(request, 'error', 'O nome do curso não pode conter números')
                 return redirect('cadastra-curso')
 
             formularioCurso.save()
-            messages.success(request, 'Cadastro efetuado com sucesso !')
+            mensagens(request, 'success', mensagensMaisUsadas['sucesso'])
             return redirect('cadastra-curso')
 
         else:
-            messages.error(request, 'Cadastro não efetuado !')
+            mensagens(request, 'error', mensagensMaisUsadas['falha'])
             return render(request, 'cadastraCurso/cadastraCurso.html', {
-                'data': data,
+                'data': dataServidor(),
                 'formCurso': formularioCurso
             })
 
 
 @login_required(redirect_field_name='login-system')
 def cadastraGrade(request):
-    return render(request, 'cadastraCurso/cadastraGrade.html')
+    if request.method != 'POST':
+        formularioGrade = FormGrade(request.POST)
+        return render(request, 'cadastraCurso/cadastraGrade.html', {
+            'formGrade': formularioGrade,
+            'data': dataServidor(),
+        })
+    else:
+        formularioGrade = FormGrade(request.POST)
+        if formularioGrade.is_valid():
+            formularioGrade.save()
+            mensagens(request, 'success', mensagensMaisUsadas['sucesso'])
+            return redirect('cadastra-grade')
+        else:
+            mensagens(request, 'error', mensagensMaisUsadas['sucesso'])
+            redirect('cadastra-grade')

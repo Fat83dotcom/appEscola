@@ -1,21 +1,19 @@
-{%extends 'base.html'%}
-{%block conteudo%}
+{%extends 'base.html'%} {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
-    <section>
-        <fieldset>
-            <h1>Cadastrar Grades</h1>
-            <form action="{% url 'cadastra-grade'%}" method="post">
-                {% csrf_token %}
-                <div class="formulario">
-                    <label for="codCurso">Cod Curso:</label>
-                    <input type="text" name="codCurso" id="codCurso" required>
-                    <label for="codDepartamento">Cod Departamento:</label>
-                    <input type="text" name="codDepartamento" id="codDepartamento" required>
-                    <button type="submit">Cadastrar Grade</button>
-                </div>
-            </form>
-        </fieldset>
-    </section>
+  {% include 'parciais/_mensagens.html'%}
+  <section>
+    <fieldset>
+      <h1>Cadastrar Grades</h1>
+      <form action="{% url 'cadastra-grade'%}" method="post">
+        {% csrf_token %}
+        <div class="formulario">
+          <table class="tabela">
+            {{formGrade}}
+          </table>
+          <button type="submit">Cadastrar Grade</button>
+        </div>
+      </form>
+    </fieldset>
+  </section>
 </main>
 {% endblock %}

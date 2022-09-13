@@ -80,6 +80,9 @@ class Grade(models.Model):
     def __str__(self) -> str:
         return f'{self.cod_disciplina} pertence ao curso: {self.cod_curso}'
 
+    class Meta:
+        unique_together = ['cod_curso', 'cod_disciplina']
+
 
 class MatriculaAluno(models.Model):
     cpf = models.ForeignKey(

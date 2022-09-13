@@ -118,7 +118,7 @@ main {
   min-height: 500px;
   width: 100%;
 }
-main+section{
+main + section{
   display: flex;
   align-items: center;
   justify-items: center;
@@ -189,6 +189,11 @@ fieldset h3{
   text-align: center;
   margin: 10px;
 }
+fieldset form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .mainLogin{
   display: flex;
   align-items: center;
@@ -233,6 +238,13 @@ fieldset h3{
   height: 30px;
   width: 90%;
   font-size: 12px;
+}
+.formulario select{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 5px;
 }
 .formulario button {
   background-color: var(--cor-SegundoNivel);
