@@ -60,7 +60,7 @@ class Departamento(models.Model):
     nome_dep = models.CharField(unique=True, max_length=100)
 
     def __str__(self) -> str:
-        return str(self.nome_dep)
+        return self.nome_dep
 
 
 class Disciplina(models.Model):
