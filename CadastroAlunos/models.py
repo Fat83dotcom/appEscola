@@ -68,8 +68,9 @@ class FormMatricula(ModelForm):
 class FormAlunoDisciplina(ModelForm):
     class Meta:
         model = AlunoDisciplina
-        fields = ['cpf', 'cod_d']
+        fields = ['cpf', 'cod_grade', 'qtd_creditos']
         labels = {
             'cpf': _('CPF / Nome do Aluno:'),
-            'cod_d': _('Código / Nome da Disciplina:'),
+            'cod_grade': _('Código / Grade Curso:'),
+            'qtd_creditos': _('Créditos:')
         }
