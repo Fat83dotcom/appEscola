@@ -21,15 +21,15 @@ def cadastraCurso(request):
         campoNome: str = request.POST.get('nome_c')
         if formularioCurso.is_valid():
             if not verificadorNumerico(campoNome):
-                mensagens(request, 'error', 'O nome do curso não pode conter números')
+                mensagens(request, 'err', 'O nome do curso não pode conter números')
                 return redirect('cadastra-curso')
 
             formularioCurso.save()
-            mensagens(request, 'success', mensagensMaisUsadas['sucesso'])
+            mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
             return redirect('cadastra-curso')
 
         else:
-            mensagens(request, 'error', mensagensMaisUsadas['falha'])
+            mensagens(request, 'err', mensagensMaisUsadas['falha'])
             return render(request, 'cadastraCurso/cadastraCurso.html', {
                 'data': dataServidor(),
                 'formCurso': formularioCurso
@@ -48,10 +48,10 @@ def cadastraGrade(request):
         formularioGrade = FormGrade(request.POST)
         try:
             formularioGrade.save()
-            mensagens(request, 'success', mensagensMaisUsadas['sucesso'])
+            mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
             return redirect('cadastra-grade')
         except ValueError as erro:
-            mensagens(request, 'error', erro)
+            mensagens(request, 'err', erro)
             return render(request, 'cadastraCurso/cadastraGrade.html', {
                 'formGrade': formularioGrade,
                 'data': dataServidor(),

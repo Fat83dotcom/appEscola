@@ -1,18 +1,19 @@
-{%extends 'base.html'%}
-{%block conteudo%}
+{%extends 'base.html'%} {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
-    <section>
-        <fieldset>
-            <h1>Cadastrar Departamentos</h1>
-            <form action="{% url 'cadastrar-departamento'%}" method="post">
-                {% csrf_token %}
-                <div class="formulario">
-                    {}
-                    <button type="submit">Cadastrar Departamento</button>
-                </div>
-            </form>
-        </fieldset>
-    </section>
+  {% include 'parciais/_mensagens.html'%}
+  <section>
+    <fieldset>
+      <h1>Cadastrar Departamentos</h1>
+      <form action="{% url 'cadastrar-departamento'%}" method="post">
+        {% csrf_token %}
+        <div class="formulario">
+          <table class="tabela">
+            {{formDep}}
+          </table>
+          <button type="submit">Cadastrar Departamento</button>
+        </div>
+      </form>
+    </fieldset>
+  </section>
 </main>
 {% endblock %}

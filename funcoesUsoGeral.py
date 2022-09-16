@@ -12,6 +12,7 @@ def dataServidor() -> datetime:
 
 
 def verificadorNumerico(string: str) -> bool:
+    '''Retorna False se houver um número na string'''
     for letra in string:
         if letra.isdigit():
             return False
@@ -19,9 +20,15 @@ def verificadorNumerico(string: str) -> bool:
 
 
 def mensagens(request, tipo: str, mensagem: str):
-    if tipo == 'success':
+    '''
+        Parametro Tipo:
+            'suc' -> Para mensagens de cadastros com sucesso.
+            'war' -> Para mensagens de avisos.
+            'err' -> Para mensagens de cadastros com erro.
+    '''
+    if tipo == 'suc':
         return messages.success(request, mensagem)
-    elif tipo == 'warnig':
+    elif tipo == 'war':
         return messages.warning(request, mensagem)
     else:
         return messages.error(request, mensagem)

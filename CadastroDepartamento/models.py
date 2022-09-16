@@ -8,3 +8,11 @@ class FormDepartamento(ModelForm):
     class Meta:
         model = Departamento
         fields = ['nome_dep']
+        labels = {
+            'nome_dep': _('Nome Departamento:')
+        }
+        widgets = {
+            'nome_dep': forms.TextInput(attrs={
+                'placeholder': 'Digite o Nome do Departamento',
+            }),
+        }
