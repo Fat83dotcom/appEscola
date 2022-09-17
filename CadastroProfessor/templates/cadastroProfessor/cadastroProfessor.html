@@ -1,21 +1,21 @@
-{%extends 'base.html'%}
-{%block conteudo%}
+{%extends 'base.html'%} {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
-    <section>
-        <fieldset>
-            <h1>Cadastrar Professor</h1>
-            <form action="{% url 'cadastrar-contrato'%}" method="post">
-                {% csrf_token %}
-                <div class="formulario">
-                    <label for="nomeProfessor">Nome Do Professor:</label>
-                    <input type="text" name="nomeProfessor" id="nomeProfessor" required>
-                    <label for="sobrenomeProf">Sobrenome Do Professor:</label>
-                    <input type="text" name="sobrenomeProf" id="sobrenomeProf" required>
-                    <button type="submit">Cadastrar Professor</button>
-                </div>
-            </form>
-        </fieldset>
-    </section>
+  {% include 'parciais/_mensagens.html'%}
+  <section>
+    <fieldset>
+      <h1>Cadastrar Professor</h1>
+      <h3>Data Hoje:</h3>
+      <h3>{{data}}</h3>
+      <form action="{% url 'cadastrar-contrato'%}" method="post">
+        {% csrf_token %}
+        <div class="formulario">
+          <table class="tabela">
+            {{formProf}}
+          </table>
+          <button type="submit">Cadastrar Professor</button>
+        </div>
+      </form>
+    </fieldset>
+  </section>
 </main>
 {% endblock %}
