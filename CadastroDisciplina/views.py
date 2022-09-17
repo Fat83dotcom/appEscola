@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import FormDisciplina
 from funcoesUsoGeral import dataServidor, verificadorNumerico, mensagens, mensagensMaisUsadas
 
+
 @login_required(redirect_field_name='login-system')
 def cadastroDisciplina(request):
     if request.method != 'POST':
@@ -29,4 +30,6 @@ def cadastroDisciplina(request):
 
 @login_required(redirect_field_name='login-system')
 def cadastroRequisito(request):
-    return render(request, 'cadastroDisciplina/cadastroRequisito.html')
+    if request.method != 'POST':
+
+        return render(request, 'cadastroDisciplina/cadastroRequisito.html')

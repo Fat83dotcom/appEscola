@@ -17,7 +17,8 @@ class Endereco(models.Model):
     logradouro = models.CharField(max_length=255)
     numero = models.CharField(max_length=10)
     bairro = models.CharField(max_length=255)
-    complemento = models.CharField(max_length=255, blank=True, null=True, default='ND')
+    complemento = models.CharField(
+        max_length=255, blank=True, null=True, default='ND')
 
     def __str__(self) -> str:
         return f'{self.logradouro.title()}, {self.numero}, {self.bairro.title()}'
@@ -102,13 +103,17 @@ class MatriculaAluno(models.Model):
 
 
 class Prerequisito(models.Model):
-    cod_requisitante = models.OneToOneField(Disciplina, models.DO_NOTHING, db_column='cod_requisitante',
-                                            primary_key=True, related_name='cod_requisitado')
+    cod_requisicao = models.AutoField(primary_key=True)
+    cod_requisitante = models.ForeignKey(Disciplina, models.DO_NOTHING, db_column='cod_requisitante',
+                                         related_name='cod_requisitado')
     cod_requisitado = models.ForeignKey(
         Disciplina, models.DO_NOTHING, db_column='cod_requisitado')
 
     def __str__(self) -> str:
-        return f'{self.cod_requisitado} é prerequisito para {self.cod_requisitante}'
+        return self.cod_requisitante
+
+    class Meta:
+        unique_together = ['cod_requisitante', 'cod_requisitado']
 
 
 class Professor(models.Model):

@@ -1,4 +1,4 @@
-from cadastros.models import Disciplina
+from cadastros.models import Disciplina, Prerequisito
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 from django import forms
@@ -17,3 +17,9 @@ class FormDisciplina(ModelForm):
                 'placeholder': 'Digite o Nome da Disciplina',
             }),
         }
+
+
+class FormRequisito(ModelForm):
+    class Meta:
+        model = Prerequisito
+        fields = ['cod_requisitante', 'cod_requisitado']
