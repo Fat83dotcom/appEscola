@@ -125,4 +125,4 @@ class Professor(models.Model):
         return f'{self.matricula_prof} / {self.nome_prof}'
 
     class Meta:
-        unique_together = ['matricula_prof', 'nome_prof', 'sobrenome_prof']
+        unique_together = ['nome_prof', 'sobrenome_prof']
