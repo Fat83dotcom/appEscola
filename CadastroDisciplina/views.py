@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import FormDisciplina
+from .models import FormDisciplina, FormRequisito
 from funcoesUsoGeral import dataServidor, verificadorNumerico, mensagens, mensagensMaisUsadas
 
 
@@ -31,5 +31,23 @@ def cadastroDisciplina(request):
 @login_required(redirect_field_name='login-system')
 def cadastroRequisito(request):
     if request.method != 'POST':
-
-        return render(request, 'cadastroDisciplina/cadastroRequisito.html')
+        formularioReq = FormRequisito(request.POST)
+        return render(request, 'cadastroDisciplina/cadastroRequisito.html', {
+            'formReq': formularioReq,
+            'data': dataServidor()
+        })
+    else:
+        formularioReq = FormRequisito(request.POST)
+        try:
+            if formularioReq.is_valid():
+                formularioReq.save()
+                mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
+                return redirect('cadastra-requisito')
+            else:
+                raise ValueError('Verifique sua entrada !')
+        except ValueError as erro:
+            mensagens(request, 'err', f'{mensagensMaisUsadas["falha"]}... {erro}')
+            return render(request, 'cadastroDisciplina/cadastroRequisito.html', {
+                'formReq': formularioReq,
+                'data': dataServidor()
+            })

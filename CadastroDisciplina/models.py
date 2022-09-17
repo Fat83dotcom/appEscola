@@ -23,3 +23,7 @@ class FormRequisito(ModelForm):
     class Meta:
         model = Prerequisito
         fields = ['cod_requisitante', 'cod_requisitado']
+        labels = {
+            'cod_requisitante': _('Disciplina Requisitante:'),
+            'cod_requisitado': _('Disciplina Requisitada:'),
+        }

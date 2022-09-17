@@ -1,21 +1,21 @@
-{%extends 'base.html'%}
-{%block conteudo%}
+{%extends 'base.html'%} {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
-    <section>
-        <fieldset>
-            <h1>Cadastrar Disciplina/Requisito</h1>
-            <form action="{% url 'cadastra-requisito'%}" method="post">
-                {% csrf_token %}
-                <div class="formulario">
-                    <label for="codRequisitante">Cod Da Disciplina Requisitante:</label>
-                    <input type="text" name="codRequisitente" id="codRequisitante" required>
-                    <label for="codRequisitada">Cod Da Disciplina Requisitada:</label>
-                    <input type="text" name="codRequisitada" id="codRequisitada" required>
-                    <button type="submit">Cadastrar Requesito</button>
-                </div>
-            </form>
-        </fieldset>
-    </section>
+  {% include 'parciais/_mensagens.html'%}
+  <section>
+    <fieldset>
+      <h1>Cadastrar Disciplina/Requisito</h1>
+      <h3>Data Hoje:</h3>
+      <h3>{{data}}</h3>
+      <form action="{% url 'cadastra-requisito'%}" method="post">
+        {% csrf_token %}
+        <div class="formulario">
+          <table class="tabela">
+            {{formReq}}
+          </table>
+          <button type="submit">Cadastrar Requesito</button>
+        </div>
+      </form>
+    </fieldset>
+  </section>
 </main>
 {% endblock %}

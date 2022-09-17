@@ -1,20 +1,21 @@
-{%extends 'base.html'%}
-{%block conteudo%}
+{%extends 'base.html'%} {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
-    <section>
-        <fieldset>
-            <h1>Cadastrar Disciplina</h1>
-            <form action="{% url 'cadastra-disciplina'%}" method="post">
-                {% csrf_token %}
-                <div class="formulario">
-                    <table class="tabela">
-                        {{formDisc}}
-                    </table>
-                    <button type="submit">Cadastrar Disciplina</button>
-                </div>
-            </form>
-        </fieldset>
-    </section>
+  {% include 'parciais/_mensagens.html'%}
+  <section>
+    <fieldset>
+      <h1>Cadastrar Disciplina</h1>
+      <h3>Data Hoje:</h3>
+      <h3>{{data}}</h3>
+      <form action="{% url 'cadastra-disciplina'%}" method="post">
+        {% csrf_token %}
+        <div class="formulario">
+          <table class="tabela">
+            {{formDisc}}
+          </table>
+          <button type="submit">Cadastrar Disciplina</button>
+        </div>
+      </form>
+    </fieldset>
+  </section>
 </main>
 {% endblock %}
