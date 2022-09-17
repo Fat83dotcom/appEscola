@@ -117,7 +117,7 @@ class Professor(models.Model):
     sobrenome_prof = models.CharField(max_length=255)
 
     def __str__(self) -> str:
-        return str(self.matricula_prof)
+        return f'{self.matricula_prof} / {self.nome_prof}'
 
 
 class Teste(models.Model):

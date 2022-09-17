@@ -29,5 +29,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    messages.warning(request, 'Você saiu, faça login para entrar novamente !')
+    ipUsuario = request.META['HTTP_HOST']
+    print(ipUsuario)
+    messages.warning(request, f'{ipUsuario} Você saiu, faça login para entrar novamente !')
     return redirect('login-system')
