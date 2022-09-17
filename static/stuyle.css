@@ -358,3 +358,48 @@ table li{
   padding: 0;
   margin: 0;
 }
+.secaoPaginacao{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
+}
+#paginacao{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  color: var(--branco);
+  background-color: var(--cor-FonteEscura);
+  height: auto;
+  font-size: 30px;
+  overflow-x: scroll;
+}
+.caixaDasPaginas a{
+  text-decoration: none;
+  color: var(--cor-FonteEscura);
+  transition: all 200ms ease-in-out;
+}
+.caixaDasPaginas a:hover{
+  color: var(--preto);
+}
+.caixaDasPaginas{
+  /* margin: auto; */
+  display: grid;
+  grid-template-columns: 40px;
+  /* gap: 5px; */
+  text-align: center;
+  text-decoration: none;
+  background-color: var(--cor-SegundoNivel);
+}
+.linkAtivo{
+  background-color: var(--preto);
+  text-align: center;
+}
+.linkAtivo a{
+  color: var(--branco);
+}
+.linkAtivo a:hover{
+  color: var(--cor-PrimeiroNivel);
+}
+

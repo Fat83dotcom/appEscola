@@ -2,20 +2,24 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from cadastros import models
 from .models import FormAluno, FormEndereco, FormMatricula, FormAlunoDisciplina
-from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from funcoesUsoGeral import dataServidor
+from django.core.paginator import Paginator
 
 
 @login_required(redirect_field_name='login-system')
 def cadastroAluno(request):
-    data = datetime.today()
-    dadosEndereco = models.Endereco.objects.order_by('-cod_end')
     if request.method != 'POST':
+        dadosEndereco = models.Endereco.objects.order_by('-cod_end')
+        paginacao = Paginator(dadosEndereco, 20)
+        pagina = request.GET.get('p')
+        dadosEndereco = paginacao.get_page(pagina)
+
         formularioAluno = FormAluno(request.POST)
         return render(request, 'cadastroAluno/cadastroAluno.html', {
             'formulario': formularioAluno,
             'dadosEnd': dadosEndereco,
-            'data': data,
+            'data': dataServidor(),
         })
 
     formularioAluno = FormAluno(request.POST)
@@ -26,7 +30,7 @@ def cadastroAluno(request):
         return render(request, 'cadastroAluno/cadastroAluno.html', {
             'formulario': formularioAluno,
             'dadosEnd': dadosEndereco,
-            'data': data,
+            'data': dataServidor(),
         })
     else:
         cpf = request.POST.get('cpf')
@@ -42,7 +46,7 @@ def cadastroAluno(request):
                     return render(request, 'cadastroAluno/cadastroAluno.html', {
                         'formulario': formularioAluno,
                         'dadosEnd': dadosEndereco,
-                        'data': data,
+                        'data': dataServidor(),
                         })
         except Exception:
             formularioAluno = FormAluno(request.POST)
@@ -50,18 +54,17 @@ def cadastroAluno(request):
             return render(request, 'cadastroAluno/cadastroAluno.html', {
                 'formulario': formularioAluno,
                 'dadosEnd': dadosEndereco,
-                'data': data,
+                'data': dataServidor(),
                 })
 
 
 @login_required(redirect_field_name='login-system')
 def cadastroEndereco(request):
-    data = datetime.today()
     if request.method != 'POST':
         formularioEndereco = FormEndereco()
         return render(request, 'cadastroAluno/cadastroEndereco.html', {
             'formularioEndereco': formularioEndereco,
-            'data': data,
+            'data': dataServidor(),
         })
 
     formularioEndereco = FormEndereco(request.POST)
@@ -71,7 +74,7 @@ def cadastroEndereco(request):
         messages.error(request, 'Verifique as entradas !')
         return render(request, 'cadastroAluno/cadastroEndereco.html', {
             'formularioEndereco': formularioEndereco,
-            'data': data,
+            'data': dataServidor(),
         })
     else:
         formularioEndereco.save()
@@ -81,12 +84,11 @@ def cadastroEndereco(request):
 
 @login_required(redirect_field_name='login-system')
 def cadastroMatricula(request):
-    data = datetime.today()
     if request.method != 'POST':
         formularioMatricula = FormMatricula(request.POST)
         return render(request, 'cadastroAluno/cadastroMatricula.html', {
             'formMatricula': formularioMatricula,
-            'data': data,
+            'data': dataServidor(),
         })
 
     formularioMatricula = FormMatricula(request.POST)
@@ -96,7 +98,7 @@ def cadastroMatricula(request):
         messages.error(request, 'Matricula inválida !')
         return render(request, 'cadastroAluno/cadastroMatricula.html', {
             'formMatricula': formularioMatricula,
-            'data': data,
+            'data': dataServidor(),
         })
     else:
         formularioMatricula.save()
@@ -106,12 +108,11 @@ def cadastroMatricula(request):
 
 @login_required(redirect_field_name='login-system')
 def cadastroDisciplina(request):
-    data = datetime.today()
     if request.method != 'POST':
         formularioDisciplina = FormAlunoDisciplina(request.POST)
         return render(request, 'cadastroAluno/cadastroDisciplina.html', {
             'formDisciplina': formularioDisciplina,
-            'data': data,
+            'data': dataServidor(),
         })
 
     formularioDisciplina = FormAlunoDisciplina(request.POST)
@@ -121,7 +122,7 @@ def cadastroDisciplina(request):
         messages.error(request, 'Por favor, confira os dados !')
         return render(request, 'cadastroAluno/cadastroDisciplina.html', {
             'formDisciplina': formularioDisciplina,
-            'data': data,
+            'data': dataServidor(),
         })
     else:
         qtdCreditos = request.POST.get('qtd_creditos')
@@ -131,7 +132,7 @@ def cadastroDisciplina(request):
             messages.warning(request, 'Quantidade de créditos não pode ser um número negativo !')
             return render(request, 'cadastroAluno/cadastroDisciplina.html', {
                 'formDisciplina': formularioDisciplina,
-                'data': data,
+                'data': dataServidor(),
             })
 
         formularioDisciplina.save()

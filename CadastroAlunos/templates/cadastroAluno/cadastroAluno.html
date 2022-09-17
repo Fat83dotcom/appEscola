@@ -1,49 +1,65 @@
-{%extends 'base.html'%}
-{%load static %}
-{%block conteudo%}
+{%extends 'base.html'%} {%load static %} {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
-    <section>
-        <fieldset>
-            <h1>Cadastrar Aluno</h1>
-            <h3>Data Hoje:</h3>
-            <h3>{{data}}</h3>
-            <form action="{% url 'cadastrar-aluno'%}" method="post">
-                {% csrf_token %}
-                <div class="formulario ">
-                    <table class="tabela">
-                        {{formulario}}
-                    </table>
-                    <div class="alinharBtn">
-                        <button type="submit">Cadastrar Aluno</button>
-                        <label for="mostraEnd">Mostrar Endereços</label>
-                        <input type="checkbox" name="mostra" id="mostraDados">
-                    </div>
+  {% include 'parciais/_mensagens.html'%}
+  <section>
+    <fieldset>
+      <h1>Cadastrar Aluno</h1>
+      <h3>Data Hoje:</h3>
+      <h3>{{data}}</h3>
+      <form action="{% url 'cadastrar-aluno'%}" method="post">
+        {% csrf_token %}
+        <div class="formulario">
+          <table class="tabela">
+            {{formulario}}
+          </table>
+          <div class="alinharBtn">
+            <button type="submit">Cadastrar Aluno</button>
+            <label for="mostraEnd">Mostrar Endereços</label>
+            <input type="checkbox" name="mostra" id="mostraDados" />
+          </div>
+        </div>
+      </form>
+    </fieldset>
+  </section>
+  <section class="mostraDados" id="mostra">
+    <table class="tabela">
+      <tr>
+        <th>Cod</th>
+        <th>logradouro</th>
+        <th>Número</th>
+        <th>Bairro</th>
+        <th>Comp.</th>
+      </tr>
+      {%for dado in dadosEnd%}
+      <tr>
+        <td>{{dado.cod_end}}</td>
+        <td>{{dado.logradouro.title}}</td>
+        <td>{{dado.numero}}</td>
+        <td>{{dado.bairro.title}}</td>
+        <td>{{dado.complemento.title}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+    <p>
+      Não encontrou o endereço? Cadastrar um endereço
+      <a href="{% url 'cadastrar-endereco'%}" target="_blank">aqui</a>
+    </p>
+  </section>
+  <section class="secaoPaginacao">
+    <nav id="paginacao">
+        {%for pagina in dadosEnd.paginator.page_range%}
+            {%if dadosEnd.number == pagina%}
+                <div class="caixaDasPaginas linkAtivo">
+                    <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
                 </div>
-            </form>
-        </fieldset>
-    </section>
-    <section class="mostraDados" id="mostra">
-        <table class="tabela">
-            <tr>
-                <th>Cod</th>
-                <th>logradouro</th>
-                <th>Número</th>
-                <th>Bairro</th>
-                <th>Comp.</th>
-            </tr>
-            {%for dado in dadosEnd%}
-            <tr>
-                <td>{{dado.cod_end}}</td>
-                <td>{{dado.logradouro.title}}</td>
-                <td>{{dado.numero}}</td>
-                <td>{{dado.bairro.title}}</td>
-                <td>{{dado.complemento.title}}</td>
-            </tr>
-            {%endfor%} 
-        </table>
-        <p>Não encontrou o endereço? Cadastrar um endereço <a href="{% url 'cadastrar-endereco'%}" target="_blank">aqui</a></p>
-    </section>
-    <script src="{% static 'script_cadastros.js'%}"></script>
+            {%else%}
+                <div class="caixaDasPaginas">
+                    <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
+                </div>
+            {%endif%} 
+        {%endfor%}
+    </nav>
+  </section>
+  <script src="{% static 'script_cadastros.js'%}"></script>
 </main>
 {% endblock %}

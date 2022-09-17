@@ -39,6 +39,20 @@
       <a href="{% url 'cadastrar-departamento'%}">aqui</a>
     </p>
   </section>
+  <section class="secaoPaginacao">
+    <nav id="paginacao">
+        {%for pagina in dadosEnd.paginator.page_range%}
+            {%if dadosEnd.number == pagina%}
+                <div class="caixaDasPaginas linkAtivo">
+                    <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
+                </div>
+            {%else%}
+                <div class="caixaDasPaginas">
+                    <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
+                </div>
+            {%endif%} 
+        {%endfor%}
+    </nav>
   <script src="{% static 'script_cadastros.js'%}"></script>
 </main>
 {% endblock %}
