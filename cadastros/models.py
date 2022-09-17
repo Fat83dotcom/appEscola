@@ -123,7 +123,3 @@ class Professor(models.Model):
 
     def __str__(self) -> str:
         return f'{self.matricula_prof} / {self.nome_prof}'
-
-
-class Teste(models.Model):
-    testi = models.CharField(max_length=10)
