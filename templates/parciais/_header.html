@@ -51,7 +51,14 @@
                     </li>
                     <li><a href="#">Consultas</a>
                         <ul>
-                            <li class="sNivel"><a href="#">Escola</a>
+                            <li class="sNivel"><a href="#">Simples</a>
+                                <ul>
+                                    <li><a href="{%url 'consulta-aluno'%}">Aluno</a></li>
+                                    <li><a href="{%url 'consulta-curso'%}"">Cursos</a></li>
+                                    <li><a href="{%url 'consulta-professor'%}"">Professores</a></li>
+                                </ul>
+                            </li>
+                            <li class="sNivel"><a href="#">Avançadas</a>
                                 <ul>
                                     <li><a href="{%url 'consulta-aluno'%}">Aluno</a></li>
                                     <li><a href="{%url 'consulta-curso'%}"">Cursos</a></li>
