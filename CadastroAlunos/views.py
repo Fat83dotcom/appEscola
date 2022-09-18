@@ -1,14 +1,9 @@
-from urllib import request
 from django.shortcuts import render, redirect
 from cadastros import models
 from .models import FormAluno, FormEndereco, FormMatricula, FormAlunoDisciplina
 from django.contrib.auth.decorators import login_required
 from funcoesUsoGeral import dataServidor, mensagens, mensagensMaisUsadas
 from django.core.paginator import Paginator
-
-
-mensagens(request, 'err', mensagensMaisUsadas['falha'])
-mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
 
 
 @login_required(redirect_field_name='login-system')
