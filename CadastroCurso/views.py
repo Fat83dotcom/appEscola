@@ -4,6 +4,7 @@ from cadastros import models
 from .models import FormCurso, FormGrade
 from funcoesUsoGeral import dataServidor, verificadorNumerico, \
     mensagens, mensagensMaisUsadas
+from django.core.paginator import Paginator
 
 
 @login_required(redirect_field_name='login-system')
@@ -19,20 +20,26 @@ def cadastraCurso(request):
     else:
         formularioCurso = FormCurso(request.POST)
         campoNome: str = request.POST.get('nome_c')
-        if formularioCurso.is_valid():
-            if not verificadorNumerico(campoNome):
-                mensagens(request, 'err', 'O nome do curso não pode conter números')
+        try:
+            if formularioCurso.is_valid():
+                if not verificadorNumerico(campoNome):
+                    mensagens(request, 'err', 'O nome do curso não pode conter números')
+                    return render(request, 'cadastraCurso/cadastraCurso.html', {
+                        'data': dataServidor(),
+                        'formCurso': formularioCurso,
+                        'dadosDep': dadosDepartamento,
+                    })
+                formularioCurso.save()
+                mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
                 return redirect('cadastra-curso')
-
-            formularioCurso.save()
-            mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
-            return redirect('cadastra-curso')
-
-        else:
-            mensagens(request, 'err', mensagensMaisUsadas['falha'])
+            else:
+                raise ValueError('Verifique sua entrada !')
+        except ValueError as erro:
+            mensagens(request, 'err', f"{mensagensMaisUsadas['falha']}... {erro}")
             return render(request, 'cadastraCurso/cadastraCurso.html', {
                 'data': dataServidor(),
-                'formCurso': formularioCurso
+                'formCurso': formularioCurso,
+                'dadosDep': dadosDepartamento,
             })
 
 
