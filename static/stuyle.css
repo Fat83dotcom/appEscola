@@ -125,6 +125,30 @@ main + section{
   width: 100%;
   background-color: var(--preto);
 }
+#consultaAluno{
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: scroll;
+}
+#consultaAluno table{
+  margin-left: 20px;
+  color: var(--branco);
+}
+.estatisticasConsultaAluno{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  font-size: 18px;
+  margin-left: 10px;
+}
+.estatisticasConsultaAluno p{
+  background-color: var(--cor-FonteClara);
+  border-radius: 5px;
+  padding: 5px;
+}
 .mostraDados,
 .mostraDados table,
 .mostraDados p{
