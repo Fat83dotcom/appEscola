@@ -8,12 +8,11 @@ from django.core.paginator import Paginator
 
 @login_required(redirect_field_name='login-system')
 def cadastroAluno(request):
+    dadosEndereco = models.Endereco.objects.order_by('-cod_end')
+    paginacao = Paginator(dadosEndereco, 20)
+    pagina = request.GET.get('p')
+    dadosEndereco = paginacao.get_page(pagina)
     if request.method != 'POST':
-        dadosEndereco = models.Endereco.objects.order_by('-cod_end')
-        paginacao = Paginator(dadosEndereco, 20)
-        pagina = request.GET.get('p')
-        dadosEndereco = paginacao.get_page(pagina)
-
         formularioAluno = FormAluno(request.POST)
         return render(request, 'cadastroAluno/cadastroAluno.html', {
             'formulario': formularioAluno,
@@ -22,7 +21,6 @@ def cadastroAluno(request):
         })
 
     formularioAluno = FormAluno(request.POST)
-
     if not formularioAluno.is_valid():
         formularioAluno = FormAluno(request.POST)
         mensagens(request, 'err', mensagensMaisUsadas['falha'])

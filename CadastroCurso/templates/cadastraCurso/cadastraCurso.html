@@ -41,8 +41,8 @@
   </section>
   <section class="secaoPaginacao">
     <nav id="paginacao">
-        {%for pagina in dadosEnd.paginator.page_range%}
-            {%if dadosEnd.number == pagina%}
+        {%for pagina in dadosDep.paginator.page_range%}
+            {%if dadosDep.number == pagina%}
                 <div class="caixaDasPaginas linkAtivo">
                     <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
                 </div>

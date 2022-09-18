@@ -10,6 +10,9 @@ from django.core.paginator import Paginator
 @login_required(redirect_field_name='login-system')
 def cadastraCurso(request):
     dadosDepartamento = models.Departamento.objects.order_by('cod_dep')
+    paginacao = Paginator(dadosDepartamento, 10)
+    pagina = request.GET.get('p')
+    dadosDepartamento = paginacao.get_page(pagina)
     if request.method != 'POST':
         formularioCurso = FormCurso(request.POST)
         return render(request, 'cadastraCurso/cadastraCurso.html', {
