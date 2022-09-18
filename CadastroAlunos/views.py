@@ -1,10 +1,14 @@
+from urllib import request
 from django.shortcuts import render, redirect
-from django.contrib import messages
 from cadastros import models
 from .models import FormAluno, FormEndereco, FormMatricula, FormAlunoDisciplina
 from django.contrib.auth.decorators import login_required
-from funcoesUsoGeral import dataServidor
+from funcoesUsoGeral import dataServidor, mensagens, mensagensMaisUsadas
 from django.core.paginator import Paginator
+
+
+mensagens(request, 'err', mensagensMaisUsadas['falha'])
+mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
 
 
 @login_required(redirect_field_name='login-system')
@@ -26,7 +30,7 @@ def cadastroAluno(request):
 
     if not formularioAluno.is_valid():
         formularioAluno = FormAluno(request.POST)
-        messages.error(request, 'Cadastro não efetuado !')
+        mensagens(request, 'err', mensagensMaisUsadas['falha'])
         return render(request, 'cadastroAluno/cadastroAluno.html', {
             'formulario': formularioAluno,
             'dadosEnd': dadosEndereco,
@@ -38,11 +42,11 @@ def cadastroAluno(request):
             if int(cpf):
                 if len(cpf) == 11:
                     formularioAluno.save()
-                    messages.success(request, 'Cadastro efetuado com sucesso !')
+                    mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
                     return redirect('cadastrar-aluno')
                 else:
                     formularioAluno = FormAluno(request.POST)
-                    messages.error(request, 'O CPF deve conter 11 números !')
+                    mensagens(request, 'err', mensagensMaisUsadas['falha'])
                     return render(request, 'cadastroAluno/cadastroAluno.html', {
                         'formulario': formularioAluno,
                         'dadosEnd': dadosEndereco,
@@ -50,7 +54,7 @@ def cadastroAluno(request):
                         })
         except Exception:
             formularioAluno = FormAluno(request.POST)
-            messages.error(request, 'O CPF deve conter somente números !')
+            mensagens(request, 'err', mensagensMaisUsadas['falha'])
             return render(request, 'cadastroAluno/cadastroAluno.html', {
                 'formulario': formularioAluno,
                 'dadosEnd': dadosEndereco,
@@ -71,14 +75,14 @@ def cadastroEndereco(request):
 
     if not formularioEndereco.is_valid():
         formularioEndereco = FormEndereco(request.POST)
-        messages.error(request, 'Verifique as entradas !')
+        mensagens(request, 'err', mensagensMaisUsadas['falha'])
         return render(request, 'cadastroAluno/cadastroEndereco.html', {
             'formularioEndereco': formularioEndereco,
             'data': dataServidor(),
         })
     else:
         formularioEndereco.save()
-        messages.success(request, 'Cadastro efetuado com sucesso!')
+        mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
         return redirect('cadastrar-endereco')
 
 
@@ -95,14 +99,14 @@ def cadastroMatricula(request):
 
     if not formularioMatricula.is_valid():
         formularioMatricula = FormMatricula(request.POST)
-        messages.error(request, 'Matricula inválida !')
+        mensagens(request, 'err', mensagensMaisUsadas['falha'])
         return render(request, 'cadastroAluno/cadastroMatricula.html', {
             'formMatricula': formularioMatricula,
             'data': dataServidor(),
         })
     else:
         formularioMatricula.save()
-        messages.success(request, 'Matricula efetuado com Sucesso !')
+        mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
         return redirect('cadastrar-matricula')
 
 
@@ -119,7 +123,7 @@ def cadastroDisciplina(request):
 
     if not formularioDisciplina.is_valid():
         formularioDisciplina = FormAlunoDisciplina(request.POST)
-        messages.error(request, 'Por favor, confira os dados !')
+        mensagens(request, 'err', mensagensMaisUsadas['falha'])
         return render(request, 'cadastroAluno/cadastroDisciplina.html', {
             'formDisciplina': formularioDisciplina,
             'data': dataServidor(),
@@ -129,12 +133,12 @@ def cadastroDisciplina(request):
 
         if int(qtdCreditos) < 0:
             formularioDisciplina = FormAlunoDisciplina(request.POST)
-            messages.warning(request, 'Quantidade de créditos não pode ser um número negativo !')
+            mensagens(request, 'war', 'O valor dos créditos não pode ser negativo !')
             return render(request, 'cadastroAluno/cadastroDisciplina.html', {
                 'formDisciplina': formularioDisciplina,
                 'data': dataServidor(),
             })
 
         formularioDisciplina.save()
-        messages.success(request, 'Cadastro efetuado com Sucesso !')
+        mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
         return redirect('cadastrar-alunoDisciplina')

@@ -21,7 +21,7 @@ class Endereco(models.Model):
         max_length=255, blank=True, null=True, default='ND')
 
     def __str__(self) -> str:
-        return f'{self.logradouro.title()}, {self.numero}, {self.bairro.title()}'
+        return f'{self.cod_end} / {self.logradouro.title()}, {self.numero}, {self.bairro.title()}'
 
     class Meta:
         unique_together = ['logradouro', 'numero', 'bairro']
