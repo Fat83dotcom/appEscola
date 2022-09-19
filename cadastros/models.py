@@ -7,6 +7,7 @@ class Aluno(models.Model):
     sobrenome_aluno = models.CharField(max_length=100)
     endereco = models.ForeignKey(
         'Endereco', on_delete=models.DO_NOTHING, db_column='endereco')
+    dt_nasc = models.DateField(null=True)
 
     def __str__(self) -> str:
         return f'{self.cpf}: {self.nome_aluno.title()} {self.sobrenome_aluno.title()}'
