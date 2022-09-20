@@ -9,3 +9,7 @@ def index(request):
     return render(request, 'contatos/index.html', {
         'data': data
     })
+
+
+def info(request):
+    return render(request, 'contatos/info.html')

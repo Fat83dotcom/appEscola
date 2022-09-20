@@ -428,4 +428,28 @@ table li{
 .linkAtivo a:hover{
   color: var(--cor-PrimeiroNivel);
 }
-
+.info{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+.info-1,
+.info-2{
+  background-color: var(--cor-FonteClara);
+  font-size: 16px;
+  border-radius: 5px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 3px 3px 3px var(--cor-FonteEscura);
+}
+.info p{
+  margin: 10px;
+  text-align: center;
+}
+.info-2{
+  margin-top: 20px;
+}
