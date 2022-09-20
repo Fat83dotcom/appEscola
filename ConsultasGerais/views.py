@@ -2,23 +2,37 @@ from django.shortcuts import render
 from cadastros import models
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.db import connection
 
 
 def consultaAluno(request):
     if request.method == 'GET':
         # cruza a consulta da tabela Aluno com a chave estrangeira endereco!
-        dadosAluno = models.Aluno.objects.prefetch_related('endereco')
-        paginacao = Paginator(dadosAluno, 20)
+        dadosAluno = models.Aluno.objects.prefetch_related(
+            'endereco').order_by('nome_aluno')
+        paginator = Paginator(dadosAluno, 20)
         pagina = request.GET.get('p')
-        dadosAluno = paginacao.get_page(pagina)
-
+        dadosAluno = paginator.get_page(pagina)
+        cursor = connection.cursor()
+        cursor.execute('SELECT AVG(EXTRACT(YEAR FROM AGE(dt_nasc))) FROM cadastros_aluno')
+        idadeMedia: float = round(cursor.fetchone()[0], 2)
+        cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))<18')
+        menor18: int = cursor.fetchone()[0]
+        cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc)) BETWEEN 18 AND 30')
+        entre18E30 = cursor.fetchone()[0]
+        cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))>30')
+        acima30 = cursor.fetchone()[0]
         estatAlunosQtdT = models.Aluno.objects.count()
         estatAlunosQtdP = len(dadosAluno)
         messages.success(request, 'Consulta realizada com sucesso !')
         return render(request, 'ConsultasGerais/consultaAluno.html', {
             'dadosJuntados': dadosAluno,
             'estatAlunoT': estatAlunosQtdT,
-            'estatAlunoP': estatAlunosQtdP
+            'estatAlunoP': estatAlunosQtdP,
+            'idadeMedia': idadeMedia,
+            'menor18': menor18,
+            'entre18e30': entre18E30,
+            'acima30': acima30,
         })
 
 
