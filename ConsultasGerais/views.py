@@ -3,6 +3,7 @@ from cadastros import models
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db import connection
+from django.contrib.auth.decorators import login_required
 
 
 def idadeMedia() -> float:
@@ -29,6 +30,7 @@ def acima30() -> int:
         return int(cursor.fetchone()[0])
 
 
+@login_required(redirect_field_name='login-system')
 def consultaAluno(request):
     if request.method == 'GET':
         # cruza a consulta da tabela Aluno com a chave estrangeira endereco!
@@ -51,9 +53,11 @@ def consultaAluno(request):
         })
 
 
+@login_required(redirect_field_name='login-system')
 def consultaCurso(request):
     return render(request, 'ConsultasGerais/consultaCurso.html')
 
 
+@login_required(redirect_field_name='login-system')
 def consultaProfessor(request):
     return render(request, 'ConsultasGerais/consultaProfessor.html')
