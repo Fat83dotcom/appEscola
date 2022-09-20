@@ -6,27 +6,27 @@ from django.db import connection
 
 
 def idadeMedia() -> float:
-    cursor = connection.cursor()
-    cursor.execute('SELECT AVG(EXTRACT(YEAR FROM AGE(dt_nasc))) FROM cadastros_aluno')
-    return float(round(cursor.fetchone()[0], 2))
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT AVG(EXTRACT(YEAR FROM AGE(dt_nasc))) FROM cadastros_aluno')
+        return float(round(cursor.fetchone()[0], 2))
 
 
 def menor18() -> int:
-    cursor = connection.cursor()
-    cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))<18')
-    return int(cursor.fetchone()[0])
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))<18')
+        return int(cursor.fetchone()[0])
 
 
 def entre18E30() -> int:
-    cursor = connection.cursor()
-    cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc)) BETWEEN 18 AND 30')
-    return int(cursor.fetchone()[0])
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc)) BETWEEN 18 AND 30')
+        return int(cursor.fetchone()[0])
 
 
 def acima30() -> int:
-    cursor = connection.create_cursor()
-    cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))>30')
-    return int(cursor.fetchone()[0])
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))>30')
+        return int(cursor.fetchone()[0])
 
 
 def consultaAluno(request):
