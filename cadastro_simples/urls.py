@@ -24,6 +24,7 @@ urlpatterns = [
     path('cadastro-dep/', include('CadastroDepartamento.urls')),
     path('cadastro-disc/', include('CadastroDisciplina.urls')),
     path('cadastro-p/', include('CadastroProfessor.urls')),
-    path('consulta/', include('ConsultasGerais.urls')),
+    path('consulta-s/', include('ConsultasGerais.urls')),
+    path('consulta-a/', include('ConsultasAvancadas.urls')),
     path('accounts/', include('Usuarios.urls')),
 ]

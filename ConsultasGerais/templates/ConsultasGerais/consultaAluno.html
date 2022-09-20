@@ -1,6 +1,11 @@
 {%extends 'base.html'%} {%load static%} {%block conteudo%}
 <main>
   {% include 'parciais/_mensagens.html'%}
+  <section>
+    <form action="{% url 'consulta-aluno'%}" method="post">
+      <label for="consultaCPF">Digite um CPF para informações detalhadas do aluno:</label>
+    </form>
+  </section>
   <section id="consultaAluno">
     <table class="tabela">
       <tr>
