@@ -7,12 +7,13 @@ from django import forms
 class FormAluno(ModelForm):
     class Meta:
         model = Aluno
-        fields = ['cpf', 'nome_aluno', 'sobrenome_aluno', 'endereco']
+        fields = ['cpf', 'nome_aluno', 'sobrenome_aluno', 'dt_nasc', 'endereco']
         labels = {
             'cpf': _('CPF:'),
             'nome_aluno': _('Nome do Aluno:'),
             'sobrenome_aluno': _('Sobrenome do Aluno:'),
-            'endereco': _('Endereço do Aluno:')
+            'dt_nasc': _('Data Nascimento:'),
+            'endereco': _('Endereço do Aluno:'),
         }
 
         widgets = {
@@ -24,6 +25,9 @@ class FormAluno(ModelForm):
             }),
             'sobrenome_aluno': forms.TextInput(attrs={
                 'placeholder': 'Digite o Sobrenome do Aluno.',
+            }),
+            'dt_nasc': forms.DateInput(attrs={
+                'placeholder': 'DD/MM/AAAA'
             }),
         }
 
