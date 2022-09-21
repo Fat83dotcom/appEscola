@@ -25,7 +25,7 @@ class FormProfessor(ModelForm):
 class FormContrato(ModelForm):
     class Meta:
         model = Contrato
-        fields = ['matricula_prof', 'dt_contrato', 'cod_dep']
+        fields = ['matricula_prof', 'cod_dep', 'dt_contrato']
         labels = {
             'matricula_prof': _('Matrícula Professor:'),
             'dt_contrato': _('Data Contrato:'),

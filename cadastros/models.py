@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 
@@ -58,9 +59,9 @@ class AlunoDisciplina(models.Model):
 class Contrato(models.Model):
     matricula_prof = models.OneToOneField(
         'Professor', models.DO_NOTHING, db_column='matricula_prof', primary_key=True)
-    dt_contrato = models.DateField()
+    dt_contrato = models.DateField(default=datetime.now().strftime('%d/%m/%Y'))
     cod_dep = models.ForeignKey(
-        'Departamento', models.DO_NOTHING, db_column='cod_dep', blank=True, null=True)
+        'Departamento', models.DO_NOTHING, db_column='cod_dep', blank=False, null=False)
 
     def __str__(self) -> str:
         return str(self.matricula_prof)
