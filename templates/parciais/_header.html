@@ -13,7 +13,7 @@
         <div id="drop" class="menuDropDown">
             <ul>
                 <li><a href="{%url 'index'%}">Home</a></li>
-                {% if 'login' not in request.path %}
+                {% if request.user.is_authenticated %}
                     <li><a href="#">Cadastros</a>
                         <ul class="primeiraUl">
                             <li class="sNivel"><a href="#">Aluno</a>

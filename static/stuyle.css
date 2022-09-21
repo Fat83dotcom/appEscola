@@ -190,7 +190,8 @@ li.sNivel:hover ul {
   align-items: center;
   font-size: 9px;
 }
-.index{
+.index,
+.div-index{
   display: flex;
   justify-content: center;
   align-items: center;
