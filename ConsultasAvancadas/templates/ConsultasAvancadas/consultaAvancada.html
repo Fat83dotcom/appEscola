@@ -1,4 +1,14 @@
-{%extends 'base.html'%}
-{%block conteudo%}
-    <h1>Teste</h1>
+{%extends 'base.html'%} {%block conteudo%}
+<main>
+    <section>
+        <form action="{% url 'consulta-aluno'%}" method="post">
+            {% csrf_token %}
+            <div class="formulario">
+                <label for="consultaCPF">Digite CPF para pesquisar por aluno:</label>
+                <input type="text" name="consultaCPF" id="consultaCPF" />
+                <button>Pesquisar</button>
+            </div>
+        </form>
+    </section>
+</main>
 {%endblock%}
