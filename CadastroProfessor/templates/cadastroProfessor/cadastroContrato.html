@@ -1,23 +1,19 @@
-{%extends 'base.html'%}
-{%block conteudo%}
+{%extends 'base.html'%} {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
-    <section>
-        <fieldset>
-            <h1>Cadastrar Professor</h1>
-            <form action="{% url 'cadastrar-professor'%}" method="post">
-                {% csrf_token %}
-                <div class="formulario">
-                    <label for="matriculaProf">Matrícula Do Professor:</label>
-                    <input type="text" name="matriculaProf" id="matriculaProf" required>
-                    <label for="codRequisitada">Cod Do Departamento:</label>
-                    <input type="text" name="codRequisitada" id="codRequisitada" required>
-                    <label for="dtContrato">Data Do Contrato:</label>
-                    <input type="date" name="dtContrato" id="dtContrato" required>
-                    <button type="submit">Cadastrar Contrato</button>
-                </div>
-            </form>
-        </fieldset>
-    </section>
+  {% include 'parciais/_mensagens.html'%}
+  <section>
+    <fieldset>
+      <h1>Cadastrar Contrato Professor</h1>
+      <form action="{% url 'cadastrar-contrato'%}" method="post">
+        {% csrf_token %}
+        <div class="formulario">
+          <table class="tabela">
+            {{formContr}}
+          </table>
+          <button type="submit">Cadastrar Contrato</button>
+        </div>
+      </form>
+    </fieldset>
+  </section>
 </main>
 {% endblock %}

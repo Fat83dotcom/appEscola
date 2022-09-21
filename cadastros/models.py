@@ -14,10 +14,10 @@ class Aluno(models.Model):
 
 
 class Endereco(models.Model):
-    cod_end = models.AutoField(primary_key=True)
-    logradouro = models.CharField(max_length=255)
-    numero = models.CharField(max_length=10)
-    bairro = models.CharField(max_length=255)
+    cod_end = models.AutoField(primary_key=True, null=False)
+    logradouro = models.CharField(max_length=255, null=False)
+    numero = models.CharField(max_length=10, null=False)
+    bairro = models.CharField(max_length=255, null=False)
     complemento = models.CharField(
         max_length=255, blank=True, null=True, default='ND')
 
@@ -30,6 +30,7 @@ class Endereco(models.Model):
 
 class Grade(models.Model):
     id_grade = models.AutoField(primary_key=True)
+    cod_grade = models.CharField(max_length=10, null=False, blank=False, default='codGrade')
     cod_curso = models.ForeignKey(
         'Curso', models.DO_NOTHING, db_column='cod_curso', null=False)
     cod_disciplina = models.ForeignKey(
@@ -39,7 +40,7 @@ class Grade(models.Model):
         return f'Cod / Disciplina: {self.cod_disciplina} | Cod / Curso: {self.cod_curso}'
 
     class Meta:
-        unique_together = ['cod_curso', 'cod_disciplina']
+        unique_together = ['cod_curso', 'cod_disciplina', 'cod_grade']
 
 
 class AlunoDisciplina(models.Model):

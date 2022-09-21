@@ -1,4 +1,4 @@
-from cadastros.models import Professor
+from cadastros.models import Professor, Contrato
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 from django import forms
@@ -19,4 +19,20 @@ class FormProfessor(ModelForm):
             'sobrenome_prof': forms.TextInput(attrs={
                 'placeholder': 'Digite o sobrenome do professor'
             })
+        }
+
+
+class FormContrato(ModelForm):
+    class Meta:
+        model = Contrato
+        fields = ['matricula_prof', 'dt_contrato', 'cod_dep']
+        labels = {
+            'matricula_prof': _('Matrícula Professor:'),
+            'dt_contrato': _('Data Contrato:'),
+            'cod_dep': _('Código Departamento',)
+        }
+        widgets = {
+            'dt_contrato': forms.DateInput(attrs={
+                'placeholder': 'DD/MM/AAAA',
+            }),
         }
