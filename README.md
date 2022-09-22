@@ -17,7 +17,7 @@
 
 O site pode ser acessado [Aqui](https://www.appescola.tk/).
 
-A finalidade deste site é *meramente educativa* e me serviu como *introdução* à todas as tecnologias citadas acima.
+A finalidade deste site é *gerenciar alunos, cursos, departamentos e mais*, e me serviu como *introdução* à todas as tecnologias citadas acima.
 
 **Encontrou uma _brecha de segurança ou bug ?_
 Por favor, me reporte o ocorrido escrevendo para:**
