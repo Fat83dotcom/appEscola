@@ -1,14 +1,22 @@
 {%extends 'base.html'%} {%block conteudo%}
 <main>
     <section>
-        <form action="{% url 'consulta-aluno'%}" method="post">
+        <form action="{% url 'consultas-avancadas'%}" method="post">
             {% csrf_token %}
             <div class="formulario">
-                <label for="consultaCPF">Digite CPF para pesquisar por aluno:</label>
-                <input type="text" name="consultaCPF" id="consultaCPF" />
+                <!-- <label for="consultaCPF">Digite CPF para pesquisar por aluno:</label>
+                <input type="text" name="consultaCPF" id="consultaCPF" value="{{ request.POST.consultaCPF}}" /> -->
+                {{form}}
                 <button>Pesquisar</button>
             </div>
         </form>
+    </section>
+    <section>
+        <div>
+            <p>
+                {{resp}}
+            </p>
+        </div>
     </section>
 </main>
 {%endblock%}
