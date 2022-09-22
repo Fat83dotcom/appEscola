@@ -446,6 +446,7 @@ table li{
   font-size: 16px;
   border-radius: 5px;
   width: 80%;
+  margin: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -454,8 +455,9 @@ table li{
 }
 .info p{
   margin: 10px;
-  text-align: center;
+  text-align: justify;
 }
-.info-2{
-  margin-top: 20px;
+.info-1 a{
+  color: #8f1935;
+  text-decoration: none;
 }
