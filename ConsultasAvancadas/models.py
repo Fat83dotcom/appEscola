@@ -3,4 +3,4 @@ from django import forms
 
 
 class FormConsulta(forms.Form):
-    pesquisa = forms.CharField(label='Pesquisa', max_length=11, required=False)
+    pesquisa = forms.CharField(label='Pesquisa', max_length=50, required=False)

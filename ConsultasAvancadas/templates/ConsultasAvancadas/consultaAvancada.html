@@ -5,34 +5,30 @@
     <form action="{% url 'consultas-avancadas'%}" method="post">
       {% csrf_token %}
       <div class="formulario">
-        <!-- <label for="consultaCPF">Digite CPF para pesquisar por aluno:</label>
-                <input type="text" name="consultaCPF" id="consultaCPF" value="{{ request.POST.consultaCPF}}" /> -->
         {{form}}
         <button>Pesquisar</button>
       </div>
     </form>
   </section>
-  <section>
-    <div>
-      <table class="tabela">
+  <section id="consultaScroll">
+    <table class="tabela">
+    <tr>
+        <th>CPF</th>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Nascimento</th>
+        <th>Endereço</th>
+    </tr>
+    {% for dados in resp%} 
         <tr>
-          <th>CPF</th>
-          <th>Nome</th>
-          <th>Sobrenome</th>
-          <th>Nascimento</th>
-          <th>Endereço</th>
+            <td>{{dados.cpf}}</td>
+            <td>{{dados.nome_aluno}}</td>
+            <td>{{dados.sobrenome_aluno}}</td>
+            <td>{{dados.dt_nasc}}</td>
+            <td>{{dados.endereco}}</td>
         </tr>
-        {% for dados in resp%} 
-            <tr>
-                <td>{{dados.cpf}}</td>
-                <td>{{dados.nome_aluno}}</td>
-                <td>{{dados.sobrenome_aluno}}</td>
-                <td>{{dados.dt_nasc}}</td>
-                <td>{{dados.endereco}}</td>
-            </tr>
-        {%endfor%}
-      </table>
-    </div>
+    {%endfor%}
+    </table>
   </section>
 </main>
 {%endblock%}

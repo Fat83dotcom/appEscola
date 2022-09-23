@@ -125,14 +125,14 @@ main + section{
   width: 100%;
   background-color: var(--preto);
 }
-#consultaAluno{
+#consultaScroll{
   margin: 0;
   width: 100%;
   display: flex;
   justify-content: flex-start;
   overflow-x: scroll;
 }
-#consultaAluno table{
+#consultaScroll table{
   font-size: 16px;
   margin-left: 10px;
   color: var(--branco);
@@ -458,6 +458,6 @@ table li{
   text-align: justify;
 }
 .info-1 a{
-  color: #8f1935;
+  color: var(--cor-FonteEscura);
   text-decoration: none;
 }
