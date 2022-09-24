@@ -2,8 +2,7 @@
 <main>
     {% include 'parciais/_mensagens.html'%}
   <section>
-    <form action="{% url 'consultas-avancadas'%}" method="post">
-      {% csrf_token %}
+    <form action="{% url 'consultas-avancadas'%}" method="get">
       <div class="formulario">
         {{form}}
         <button>Pesquisar</button>
@@ -29,6 +28,21 @@
         </tr>
     {%endfor%}
     </table>
+  </section>
+  <section class="secaoPaginacao">
+    <nav id="paginacao">
+        {%for pagina in resp.paginator.page_range%}
+            {%if resp.number == pagina%}
+                <div class="caixaDasPaginas linkAtivo">
+                    <a class="linkPaginacao" href="?p={{pagina}}&pesquisa={{request.GET.pesquisa}}">{{pagina}}</a>
+                </div>
+            {%else%}
+                <div class="caixaDasPaginas">
+                    <a class="linkPaginacao" href="?p={{pagina}}&pesquisa={{request.GET.pesquisa}}">{{pagina}}</a>
+                </div>
+            {%endif%} 
+        {%endfor%}
+    </nav>
   </section>
 </main>
 {%endblock%}

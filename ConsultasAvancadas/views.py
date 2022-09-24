@@ -5,6 +5,7 @@ from funcoesUsoGeral import mensagens
 from .models import FormConsulta
 from cadastros.models import Aluno
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 def formatadorDatas(dataEntrada):
@@ -16,16 +17,16 @@ def formatadorDatas(dataEntrada):
 
 @login_required(redirect_field_name='login-system')
 def consultas(request):
-    if request.method != 'POST':
-        formulario = FormConsulta(request.POST)
+    if request.method != 'GET':
+        formulario = FormConsulta(request.GET)
         return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
             'form': formulario,
         })
     else:
-        formulario = FormConsulta(request.POST)
+        formulario = FormConsulta(request.GET)
         if formulario.is_valid():
             try:
-                pesquisa = request.POST.get('pesquisa')
+                pesquisa = request.GET.get('pesquisa')
                 print(pesquisa)
                 if pesquisa == '':
                     mensagens(request, 'war', 'Digite um nome, sobrenome, data de nascimento, cpf ou parte deles.')
@@ -41,6 +42,9 @@ def consultas(request):
                     return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
                         'form': formulario,
                     })
+                paginator = Paginator(resultadoPesquisa, 10)
+                pagina = request.GET.get('p')
+                resultadoPesquisa = paginator.get_page(pagina)
                 mensagens(request, 'suc', 'Pesquisa realizada com Sucesso')
                 return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
                     'form': formulario,
