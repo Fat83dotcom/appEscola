@@ -129,8 +129,9 @@ main + section{
   margin: 0;
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   overflow-x: scroll;
+  margin: 10px;
 }
 #consultaScroll table{
   font-size: 16px;
@@ -255,6 +256,7 @@ fieldset form{
   box-shadow: 2px 2px 2px var(--cor-FonteClara);
   border-collapse: collapse;
   width: 90%;
+  margin: 10px;
 }
 .formulario label,
 .formulario input,

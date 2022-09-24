@@ -45,6 +45,13 @@ def pesquisaAvancada(pesquisa):
 @login_required(redirect_field_name='login-system')
 def consultas(request):
     formulario = FormConsulta(request.GET)
+    contexto = {
+        'form': '',
+        'resp': '',
+        'nResult': '',
+        'nResultPag': '',
+        'temp': ''
+    }
     if formulario.is_valid():
         try:
             pesquisa = request.GET.get('pesquisa')
@@ -52,28 +59,31 @@ def consultas(request):
                 mensagens(request, 'war', 'Digite um nome, sobrenome, data de nascimento, cpf ou parte deles.')
                 return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
                     'form': formulario,
+                    'nResult': 0,
                 })
             resultadoPesquisa, log = pesquisaAvancada(pesquisa)
-            nTotalResult = len(resultadoPesquisa)
+            contexto['nResult'] = len(resultadoPesquisa)
             if len(resultadoPesquisa) == 0:
                 mensagens(request, 'war', f'Não foram encotrados dados relacionados a {pesquisa}')
                 return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
                     'form': formulario,
+                    'nResult': 0,
                 })
             resultadoPesquisa = paginacao(request, resultadoPesquisa, 10)
+            contexto['nResultPag'] = len(resultadoPesquisa)
+            contexto['form'] = formulario
+            contexto['resp'] = resultadoPesquisa
+            contexto['temp'] = round(log, 3)
             mensagens(request, 'suc', 'Pesquisa realizada com Sucesso')
-            return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
-                'form': formulario,
-                'resp': resultadoPesquisa,
-                'log': round(log, 3),
-                'nResult': nTotalResult
-            })
+            return render(request, 'ConsultasAvancadas/consultaAvancada.html', contexto)
         except Exception as erro:
             mensagens(request, 'err', erro)
             return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
                 'form': formulario,
+                'nResult': 0,
             })
     else:
         return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
             'form': formulario,
+            'nResult': 0,
         })

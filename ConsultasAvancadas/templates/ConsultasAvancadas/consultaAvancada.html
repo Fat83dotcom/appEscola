@@ -1,4 +1,5 @@
-{%extends 'base.html'%} {%block conteudo%}
+{%extends 'base.html'%} 
+{%block conteudo%}
 <main>
   {% include 'parciais/_mensagens.html'%}
   <section>
@@ -10,14 +11,18 @@
     </form>
   </section>
   <section id="consultaScroll">
+    {%if nResult < 1%}
+      <p></p>
+    {%else%}
     <table class="tabela">
-    <tr>
+      <tr>
         <th>CPF</th>
         <th>Nome</th>
         <th>Sobrenome</th>
         <th>Nascimento</th>
         <th>Endereço</th>
-    </tr>
+      </tr>
+      
     {% for dados in resp%} 
         <tr>
             <td>{{dados.cpf}}</td>
@@ -28,9 +33,20 @@
         </tr>
     {%endfor%}
     </table>
+    {%endif%}
     <section class="estatisticasConsulta">
-      <h1>Estatísticas:</h1>
-      <p>{{nResult}} resultados em {{log}} segundos.</p>
+      
+        {%if nResult > 1%}
+          <h1>Estatísticas:</h1>
+            <p>{{nResult}} resultados em {{temp}} segundos.</p>
+            <p>{{nResultPag}} resultados mosntrados na pagina.</p>
+        {%elif nResult == 1%}
+          <h1>Estatísticas:</h1>
+            <p>{{nResult}} resultado em {{temp}} segundos.</p>
+            <p>{{nResultPag}} resultado mosntrado na pagina.</p>
+        {%else%}
+          <p></p>
+        {%endif%}
     </section>
   </section>
   <section class="secaoPaginacao">
