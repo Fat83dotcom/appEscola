@@ -1,6 +1,6 @@
 {%extends 'base.html'%} {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
+  {% include 'parciais/_mensagens.html'%}
   <section>
     <form action="{% url 'consultas-avancadas'%}" method="get">
       <div class="formulario">
@@ -28,6 +28,10 @@
         </tr>
     {%endfor%}
     </table>
+    <section class="estatisticasConsulta">
+      <h1>Estatísticas:</h1>
+      <p>{{nResult}} resultados em {{log}} segundos.</p>
+    </section>
   </section>
   <section class="secaoPaginacao">
     <nav id="paginacao">
