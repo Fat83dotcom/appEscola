@@ -8,8 +8,11 @@ from django.contrib.auth.decorators import login_required
 
 def idadeMedia() -> float:
     with connection.cursor() as cursor:
-        cursor.execute('SELECT AVG(EXTRACT(YEAR FROM AGE(dt_nasc))) FROM cadastros_aluno')
-        return float(round(cursor.fetchone()[0], 2))
+        try:
+            cursor.execute('SELECT AVG(EXTRACT(YEAR FROM AGE(dt_nasc))) FROM cadastros_aluno')
+            return float(round(cursor.fetchone()[0], 2))
+        except Exception:
+            return 0
 
 
 def menor18() -> int:

@@ -96,10 +96,14 @@ class Disciplina(models.Model):
 
 
 class MatriculaAluno(models.Model):
+    numero_matricula = models.AutoField(primary_key=True)
     cpf = models.ForeignKey(
-        Aluno, models.DO_NOTHING, db_column='cpf', primary_key=True)
-    cod_c = models.ForeignKey(Curso, models.DO_NOTHING, db_column='cod_c')
+        Aluno, models.DO_NOTHING, db_column='cpf', null=False)
+    cod_c = models.ForeignKey(Curso, models.DO_NOTHING, db_column='cod_c', null=False)
     dt_matricula = models.DateField(auto_now=True)
+
+    class Meta:
+        unique_together = ['numero_matricula', 'cpf', 'cod_c']
 
     def __str__(self) -> str:
         return str(self.cpf)
