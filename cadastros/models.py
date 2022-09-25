@@ -9,7 +9,6 @@ class Aluno(models.Model):
     endereco = models.ForeignKey(
         'Endereco', on_delete=models.DO_NOTHING, db_column='endereco')
     dt_nasc = models.DateField(null=True)
-    matricula = models.ForeignKey('MatriculaAluno', on_delete=models.DO_NOTHING, db_column='matricula', null=True)
 
     def __str__(self) -> str:
         return f'{self.cpf}: {self.nome_aluno.title()} {self.sobrenome_aluno.title()}'
