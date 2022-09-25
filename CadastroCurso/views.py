@@ -62,9 +62,9 @@ def cadastraGrade(request):
                 mensagens(request, 'suc', mensagensMaisUsadas['sucesso'])
                 return redirect('cadastra-grade')
             else:
-                raise ValueError('Verifique sua entrada !')
-        except ValueError as erro:
-            mensagens(request, 'err', f'{mensagensMaisUsadas["falha"]}... {erro}')
+                raise Exception()
+        except Exception as erro:
+            mensagens(request, 'err', f'{mensagensMaisUsadas["falha"]}... {str(erro)[:47]}')
             return render(request, 'cadastraCurso/cadastraGrade.html', {
                 'formGrade': formularioGrade,
                 'data': dataServidor(),
