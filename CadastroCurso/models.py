@@ -24,8 +24,14 @@ class FormCurso(ModelForm):
 class FormGrade(ModelForm):
     class Meta:
         model = Grade
-        fields = ['cod_curso', 'cod_disciplina']
+        fields = ['cod_curso', 'cod_disciplina', 'cod_grade']
         labels = {
             'cod_curso': _('Código do Curso:'),
             'cod_disciplina': _('Código da Disciplina:'),
+            'cod_grade': _('Código Grade')
+        }
+        widgets = {
+            'cod_grade': forms.TextInput(attrs={
+                'placeholder': 'O mesmo código para o mesmo curso.'
+            })
         }
