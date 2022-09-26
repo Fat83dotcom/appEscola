@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from cadastros import models
 from django.contrib import messages
-from django.core.paginator import Paginator
 from django.db import connection
 from django.contrib.auth.decorators import login_required
+from funcoesUsoGeral import paginacao, mensagens, mensagensMaisUsadas
 
 
 def idadeMedia() -> float:
@@ -39,12 +39,10 @@ def consultaAluno(request):
         # cruza a consulta da tabela Aluno com a chave estrangeira endereco!
         dadosAluno = models.Aluno.objects.prefetch_related(
             'endereco').order_by('nome_aluno')
-        paginator = Paginator(dadosAluno, 20)
-        pagina = request.GET.get('p')
-        dadosAluno = paginator.get_page(pagina)
+        dadosAluno = paginacao(request, dadosAluno, 20)
         estatAlunosQtdT = models.Aluno.objects.count()
         estatAlunosQtdP = len(dadosAluno)
-        messages.success(request, 'Consulta realizada com sucesso !')
+        messages.success(request, mensagensMaisUsadas['consSuc'])
         return render(request, 'ConsultasGerais/consultaAluno.html', {
             'dadosJuntados': dadosAluno,
             'estatAlunoT': estatAlunosQtdT,
@@ -58,7 +56,14 @@ def consultaAluno(request):
 
 @login_required(redirect_field_name='login-system')
 def consultaCurso(request):
-    return render(request, 'ConsultasGerais/consultaCurso.html')
+    resultadoPesquisa = models.Curso.objects.prefetch_related('cod_dep')
+    nCursos = len(resultadoPesquisa)
+    contexto = {
+        'result': resultadoPesquisa,
+        'nCursos': nCursos
+    }
+    mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
+    return render(request, 'ConsultasGerais/consultaCurso.html', contexto)
 
 
 @login_required(redirect_field_name='login-system')
