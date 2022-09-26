@@ -5,9 +5,8 @@ from funcoesUsoGeral import mensagens
 from .models import FormConsulta
 from cadastros.models import Aluno
 from django.db.models import Q, Value
-from django.core.paginator import Paginator
 from django.db.models.functions import Concat
-from time import time
+from funcoesUsoGeral import paginacao, log
 
 
 def formatadorDatas(dataEntrada):
@@ -15,19 +14,6 @@ def formatadorDatas(dataEntrada):
         return datetime.strptime(dataEntrada, '%d/%m/%Y').strftime('%Y-%m-%d')
     except Exception:
         return None
-
-
-def paginacao(request, query, nPaginas):
-    return Paginator(query, nPaginas).get_page(request.GET.get('p'))
-
-
-def log(funcao):
-    def motor(*args) -> tuple:
-        tIni = time()
-        retornoFuncao = funcao(*args)
-        tFim = time()
-        return retornoFuncao, tFim - tIni
-    return motor
 
 
 @log
