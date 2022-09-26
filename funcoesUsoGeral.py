@@ -1,9 +1,14 @@
 from datetime import datetime
 from django.contrib import messages
+from time import time
+from django.core.paginator import Paginator
+
 
 mensagensMaisUsadas = {
     'sucesso': 'Cadastro efetuado com sucesso !',
-    'falha': 'Cadastro não efetuado !'
+    'falha': 'Cadastro não efetuado !',
+    'consSuc': 'Consulta realizada com sucesso !',
+    'consFal': 'Consulta não realizada',
 }
 
 
@@ -32,3 +37,16 @@ def mensagens(request, tipo: str, mensagem: str):
         return messages.warning(request, mensagem)
     else:
         return messages.error(request, mensagem)
+
+
+def paginacao(request, query, nPaginas):
+    return Paginator(query, nPaginas).get_page(request.GET.get('p'))
+
+
+def log(funcao):
+    def motor(*args) -> tuple:
+        tIni = time()
+        retornoFuncao = funcao(*args)
+        tFim = time()
+        return retornoFuncao, tFim - tIni
+    return motor
