@@ -1,43 +1,43 @@
 {%extends 'base.html'%}
 {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
-    <section id="consultaScroll">
-        <table class="tabela">
-          <tr>
-            <th>Código</th>
-            <th>Nome</th>
-            <th>Departamento</th>
-          </tr>
-          {%for dado in result%}
-          <tr>
-            <td>{{dado.cod_c}}</td>
-            <td>{{dado.nome_c}}</td>
-            <td>{{dado.cod_dep}}</td>
-          </tr>
-          {%endfor%}
-        </table>
-        <section class="estatisticasConsulta">
-          <h1>Estatísticas</h1>
-          <article >
-            <p>Número Total Cursos: {{nCursos}}</p>
-          </article>
-        </section>
+  {% include 'parciais/_mensagens.html'%}
+  <section id="consultaScroll">
+    <table class="tabela">
+      <tr>
+        <th>Código</th>
+        <th>Nome</th>
+        <th>Departamento</th>
+      </tr>
+      {%for dado in result%}
+      <tr>
+        <td>{{dado.cod_c}}</td>
+        <td>{{dado.nome_c}}</td>
+        <td>{{dado.cod_dep}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+      <section class="estatisticasConsulta">
+        <h1>Estatísticas</h1>
+        <article >
+          <p>Número Total Cursos: {{nCursos}}</p>
+        </article>
       </section>
-      <section class="secaoPaginacao">
-        <nav id="paginacao">
-            {%for pagina in dadosJuntados.paginator.page_range%}
-                {%if dadosJuntados.number == pagina%}
-                    <div class="caixaDasPaginas linkAtivo">
-                        <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
-                    </div>
-                {%else%}
-                    <div class="caixaDasPaginas">
-                        <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
-                    </div>
-                {%endif%} 
-            {%endfor%}
-        </nav>
-      </section>
+  </section>
+  <section class="secaoPaginacao">
+    <nav id="paginacao">
+      {%for pagina in dadosJuntados.paginator.page_range%}
+        {%if dadosJuntados.number == pagina%}
+          <div class="caixaDasPaginas linkAtivo">
+            <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
+          </div>
+        {%else%}
+          <div class="caixaDasPaginas">
+            <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
+          </div>
+        {%endif%} 
+      {%endfor%}
+    </nav>
+  </section>
 </main>
 {%endblock%}

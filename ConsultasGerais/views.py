@@ -57,6 +57,8 @@ def consultaAluno(request):
 @login_required(redirect_field_name='login-system')
 def consultaCurso(request):
     resultadoPesquisa = models.Curso.objects.prefetch_related('cod_dep')
+    nAlunosCursos = models.MatriculaAluno.objects.select_related('cod_c')
+    print(nAlunosCursos)
     nCursos = len(resultadoPesquisa)
     contexto = {
         'result': resultadoPesquisa,
@@ -69,3 +71,14 @@ def consultaCurso(request):
 @login_required(redirect_field_name='login-system')
 def consultaProfessor(request):
     return render(request, 'ConsultasGerais/consultaProfessor.html')
+
+
+@login_required(redirect_field_name='login-system')
+def detalhesAluno(request):
+    if request.method != 'GET':
+        return render(request, 'ConsultasGerais/detalhesAlunos.html')
+    else:
+        cpf = request.GET.get('cpf')
+        return render(request, 'ConsultasGerais/detalhesAlunos.html', {
+            'cpf': cpf
+        })

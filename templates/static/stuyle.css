@@ -322,6 +322,10 @@ fieldset form{
   width: auto;
   font-size: 18px;
 }
+.tabela a{
+  color: var(--cor-PrimeiroNivel);
+  text-decoration: none;
+}
 table th,
 table tr,
 table td{
