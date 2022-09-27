@@ -464,3 +464,14 @@ table li{
   color: var(--cor-FonteEscura);
   text-decoration: none;
 }
+#btnConsult{
+  background-color: var(--cor-FonteEscura);
+  color: var(--branco);
+  transition: all 400ms ease-in-out;
+  width: auto;
+  height: auto;
+}
+#btnConsult:hover{
+  background-color: var(--cor-SegundoNivel);
+  color: var(--preto);
+}

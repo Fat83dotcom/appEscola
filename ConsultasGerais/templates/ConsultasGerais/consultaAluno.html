@@ -12,8 +12,9 @@
       </tr>
       {%for dado in dadosJuntados%}
       <tr>
-        <form action="{%url 'detalhes-aluno'%}" method="get">
-          <td><input type="hidden" name="cpf" value="{{dado.cpf}}"><button type="submit">{{dado.cpf}}</button></td>
+        <form action="{%url 'detalhes-aluno'%}" method="get" target="_blank">
+          <td><input type="hidden" name="cpf" value="{{dado.cpf}}"><button type="submit" id="btnConsult">
+            {{dado.cpf}}</button></td>
         </form>
         <td>{{dado.nome_aluno}}</td>
         <td>{{dado.sobrenome_aluno}}</td>
