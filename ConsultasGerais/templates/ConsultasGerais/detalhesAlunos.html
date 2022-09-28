@@ -1,4 +1,30 @@
 {%extends 'base.html'%}
 {%block conteudo%}
-    {{cpf}}
+<main>
+    {% include 'parciais/_mensagens.html'%}
+    <section id="consultaScroll">
+      <table class="tabela">
+        <tr>
+          <th>Nome</th>
+          <th>Sobrenome</th>
+          <th>Data Nasc.</th>
+          <th>Código Curso</th>
+          <th>Nome Curso</th>
+          <th>Número Matrícula</th>
+          <th>Data Matrícula</th>
+        </tr>
+        <tr>
+            {%for dado in dados%}
+            <td>{{dado}}</td>
+            {%endfor%}
+        </tr> 
+      </table>
+      <section class="estatisticasConsulta">
+        <h1></h1>
+        <article >
+          <p></p>
+        </article>
+      </section>
+    </section>
+</main>
 {%endblock%}
