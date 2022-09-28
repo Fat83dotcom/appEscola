@@ -118,4 +118,4 @@ def detalhesAluno(request):
             })
         except Exception:
             mensagens(request, 'err', f"{mensagensMaisUsadas['consFal']}... Aluno {cpf} não matriculado.")
-            return redirect('consulta-aluno')
+            return redirect('cadastrar-matricula')
