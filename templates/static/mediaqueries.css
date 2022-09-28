@@ -38,7 +38,7 @@
   table th,
   table tr,
   table td {
-    font-size: 18px;
+    font-size: 8px;
     margin: 0;
     padding: 0;
   }
@@ -46,13 +46,19 @@
   table li {
     margin: 0;
     padding: 0;
-    font-size: 12px;
+    font-size: 8px;
   }
   #consultaScroll{
+    justify-content: flex-start;
     flex-direction: column;
   }
   .tabela{
+    /* font-size: 12px; */
     margin-top: 20px;
+    /* display: block; */
+  }
+  .tabela button{
+    font-size: 8px;
   }
 }
 .tabela input,

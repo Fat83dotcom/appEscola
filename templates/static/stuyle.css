@@ -318,7 +318,7 @@ fieldset form{
 .tabela{
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: space-between; */
   border-collapse: collapse;
   width: auto;
   font-size: 18px;
