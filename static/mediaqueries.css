@@ -53,15 +53,13 @@
     flex-direction: column;
   }
   .tabela{
-    /* font-size: 12px; */
     margin-top: 20px;
-    /* display: block; */
   }
   .tabela button{
     font-size: 10px;
   }
   .estatisticasConsulta{
-    font-size: 8px;
+    font-size: 10px;
   }
 }
 .tabela input,
