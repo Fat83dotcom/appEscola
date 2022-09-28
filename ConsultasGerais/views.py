@@ -117,5 +117,5 @@ def detalhesAluno(request):
                 'dadosG': grade,
             })
         except Exception:
-            mensagens(request, 'err', f"{mensagensMaisUsadas['consFal']}. Aluno não matriculado.")
+            mensagens(request, 'err', f"{mensagensMaisUsadas['consFal']}... Aluno {cpf} não matriculado.")
             return redirect('consulta-aluno')
