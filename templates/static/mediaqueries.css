@@ -27,7 +27,7 @@
     left: 120px;
   }
   fieldset h1 {
-    font-size: 18px;
+    font-size: 16px;
     width: 80%;
   }
   .formulario label,
@@ -38,7 +38,7 @@
   table th,
   table tr,
   table td {
-    font-size: 8px;
+    font-size: 9px;
     margin: 0;
     padding: 0;
   }
@@ -46,7 +46,7 @@
   table li {
     margin: 0;
     padding: 0;
-    font-size: 8px;
+    font-size: 9px;
   }
   #consultaScroll{
     justify-content: flex-start;
