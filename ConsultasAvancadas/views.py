@@ -41,7 +41,7 @@ def consultas(request):
     if formulario.is_valid():
         try:
             pesquisa = request.GET.get('pesquisa')
-            if pesquisa == '' or pesquisa is None:
+            if pesquisa == '' or pesquisa is None or pesquisa == ' ':
                 mensagens(request, 'war', 'Digite um nome, sobrenome, data de nascimento, cpf ou parte deles.')
                 return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
                     'form': formulario,
