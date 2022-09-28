@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from cadastros import models
 from django.contrib import messages
 from django.db import connection
@@ -105,12 +105,17 @@ def detalhesAluno(request):
     if request.method != 'GET':
         return render(request, 'ConsultasGerais/detalhesAlunos.html')
     else:
-        cpf = request.GET.get('cpf')
-        dadoAluno = dadosAlunos(cpf)
-        codCurso = dadoAluno[3]
-        grade = materiasCurso(codCurso)
-        grade = (materia[0] for materia in grade)
-        return render(request, 'ConsultasGerais/detalhesAlunos.html', {
-            'dadosA': dadoAluno,
-            'dadosG': grade,
-        })
+        try:
+            cpf = request.GET.get('cpf')
+            dadoAluno = dadosAlunos(cpf)
+            codCurso = dadoAluno[3]
+            grade = materiasCurso(codCurso)
+            grade = (materia[0] for materia in grade)
+            mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
+            return render(request, 'ConsultasGerais/detalhesAlunos.html', {
+                'dadosA': dadoAluno,
+                'dadosG': grade,
+            })
+        except Exception:
+            mensagens(request, 'err', f"{mensagensMaisUsadas['consFal']}. Aluno não matriculado.")
+            return redirect('consulta-aluno')
