@@ -9,7 +9,8 @@ from funcoesUsoGeral import paginacao, mensagens, mensagensMaisUsadas
 def idadeMedia() -> float:
     with connection.cursor() as cursor:
         try:
-            cursor.execute('SELECT AVG(EXTRACT(YEAR FROM AGE(dt_nasc))) FROM cadastros_aluno')
+            cursor.execute(
+                'SELECT AVG(EXTRACT(YEAR FROM AGE(dt_nasc))) FROM cadastros_aluno')
             return float(round(cursor.fetchone()[0], 2))
         except Exception:
             return 0
@@ -17,20 +18,34 @@ def idadeMedia() -> float:
 
 def menor18() -> int:
     with connection.cursor() as cursor:
-        cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))<18')
+        cursor.execute(
+            'SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))<18')
         return int(cursor.fetchone()[0])
 
 
 def entre18E30() -> int:
     with connection.cursor() as cursor:
-        cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc)) BETWEEN 18 AND 30')
+        cursor.execute(
+            'SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc)) BETWEEN 18 AND 30')
         return int(cursor.fetchone()[0])
 
 
 def acima30() -> int:
     with connection.cursor() as cursor:
-        cursor.execute('SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))>30')
+        cursor.execute(
+            'SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))>30')
         return int(cursor.fetchone()[0])
+
+
+def dadosAlunos(cpf):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            f"SELECT nome_aluno, sobrenome_aluno,dt_nasc, cadastros_curso.cod_c, nome_c,"
+            f"numero_matricula, dt_matricula FROM cadastros_aluno, cadastros_matriculaaluno,"
+            f"cadastros_curso WHERE cadastros_aluno.cpf='{cpf}' AND "
+            "cadastros_aluno.cpf=cadastros_matriculaaluno.cpf AND "
+            "cadastros_matriculaaluno.cod_c=cadastros_curso.cod_c")
+        return cursor.fetchone()
 
 
 @login_required(redirect_field_name='login-system')
@@ -79,6 +94,8 @@ def detalhesAluno(request):
         return render(request, 'ConsultasGerais/detalhesAlunos.html')
     else:
         cpf = request.GET.get('cpf')
+        dadoAluno = dadosAlunos(cpf)
+        print(dadoAluno)
         return render(request, 'ConsultasGerais/detalhesAlunos.html', {
-            'cpf': cpf
+            'dados': dadoAluno
         })
