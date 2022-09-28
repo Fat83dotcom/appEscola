@@ -17,9 +17,9 @@ def formatadorDatas(dataEntrada):
 
 
 @log
-def pesquisaAvancada(pesquisa):
+def pesquisaAvancada(pesquisa, modelo):
     nomeCompleto = Concat('nome_aluno', Value(' '), 'sobrenome_aluno')
-    return Aluno.objects.prefetch_related('endereco').order_by(
+    return modelo.objects.prefetch_related('endereco').order_by(
                 'nome_aluno').annotate(nomeCompleto=nomeCompleto).filter(
                 Q(cpf__icontains=pesquisa) |
                 Q(nome_aluno__icontains=pesquisa) |
@@ -47,7 +47,7 @@ def consultas(request):
                     'form': formulario,
                     'nResult': 0,
                 })
-            resultadoPesquisa, log = pesquisaAvancada(pesquisa)
+            resultadoPesquisa, log = pesquisaAvancada(pesquisa, Aluno)
             contexto['nResult'] = len(resultadoPesquisa)
             if len(resultadoPesquisa) == 0:
                 mensagens(request, 'war', f'Não foram encotrados dados relacionados a {pesquisa}')
