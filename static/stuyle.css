@@ -321,6 +321,7 @@ fieldset form{
   border-collapse: collapse;
   width: auto;
   font-size: 18px;
+  text-align: center;
 }
 .tabela a{
   color: var(--cor-PrimeiroNivel);
