@@ -3,7 +3,7 @@ from cadastros import models
 from django.contrib import messages
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from funcoesUsoGeral import paginacao, mensagens, mensagensMaisUsadas
+from funcoesUsoGeral import paginacao, mensagens, mensagensMaisUsadas, log
 
 
 def idadeMedia() -> float:
@@ -38,7 +38,14 @@ def acima30() -> int:
         return int(cursor.fetchone()[0])
 
 
-def dadosAlunos(cpf):
+@log
+def consultaGeralAlunos(modelo):
+    return modelo.objects.prefetch_related(
+            'endereco').order_by('nome_aluno')
+
+
+@log
+def detalhesEscolaresAlunos(cpf) -> tuple | None:
     with connection.cursor() as cursor:
         cursor.execute(
             "SELECT nome_aluno, sobrenome_aluno,dt_nasc, cadastros_curso.cod_c, nome_c,"
@@ -50,7 +57,7 @@ def dadosAlunos(cpf):
         return cursor.fetchone()
 
 
-def materiasCurso(codCurso):
+def materiasCurso(codCurso) -> list[tuple]:
     with connection.cursor() as cursor:
         cursor.execute(
             "SELECT nome_disciplina FROM cadastros_grade, cadastros_disciplina,"
@@ -64,8 +71,7 @@ def materiasCurso(codCurso):
 def consultaAluno(request):
     if request.method == 'GET':
         # cruza a consulta da tabela Aluno com a chave estrangeira endereco!
-        dadosAluno = models.Aluno.objects.prefetch_related(
-            'endereco').order_by('nome_aluno')
+        dadosAluno, log = consultaGeralAlunos(models.Aluno)
         dadosAluno = paginacao(request, dadosAluno, 20)
         estatAlunosQtdT = models.Aluno.objects.count()
         estatAlunosQtdP = len(dadosAluno)
@@ -78,6 +84,8 @@ def consultaAluno(request):
             'menor18': menor18(),
             'entre18e30': entre18E30(),
             'acima30': acima30(),
+            'temp': round(log, 3),
+            'nResult': estatAlunosQtdT
         })
 
 
@@ -107,7 +115,7 @@ def detalhesAluno(request):
     else:
         try:
             cpf = request.GET.get('cpf')
-            dadoAluno = dadosAlunos(cpf)
+            dadoAluno, log = detalhesEscolaresAlunos(cpf)
             codCurso = dadoAluno[3]
             grade = materiasCurso(codCurso)
             grade = (materia[0] for materia in grade)
@@ -115,6 +123,8 @@ def detalhesAluno(request):
             return render(request, 'ConsultasGerais/detalhesAlunos.html', {
                 'dadosA': dadoAluno,
                 'dadosG': grade,
+                'temp': round(log, 3),
+                'nResult': len(dadoAluno)
             })
         except Exception:
             mensagens(request, 'err', f"{mensagensMaisUsadas['consFal']}... Aluno {cpf} não matriculado.")

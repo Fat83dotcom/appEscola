@@ -58,6 +58,9 @@
     /* display: block; */
   }
   .tabela button{
+    font-size: 10px;
+  }
+  .estatisticasConsulta{
     font-size: 8px;
   }
 }

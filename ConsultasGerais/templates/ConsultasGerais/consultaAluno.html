@@ -32,6 +32,14 @@
         <p>{{menor18}} Alunos menores de 18 anos.</p>
         <p>{{entre18e30}} Alunos entre 18 e 30 anos.</p>
         <p>{{acima30}} Alunos acima de 30 anos.</p>
+        {%if nResult > 1%}
+            <p>{{nResult}} resultados em {{temp}} segundos.</p>
+        {%elif nResult == 1%}
+          <h1>Estatísticas:</h1>
+            <p>{{nResult}} resultado em {{temp}} segundos.</p>
+        {%else%}
+          <p></p>
+        {%endif%}
       </article>
     </section>
   </section>

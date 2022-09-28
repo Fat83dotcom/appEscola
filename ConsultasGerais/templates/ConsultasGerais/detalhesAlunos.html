@@ -29,12 +29,15 @@
         </tr>
         {%endfor%}
       </table>
-      <section class="estatisticasConsulta">
-        <h1></h1>
-        <article >
-          <p></p>
-        </article>
-      </section>
+    </section>
+    <section class="estatisticasConsulta">
+      {%if nResult > 1%}
+        <p>{{nResult}} resultados em {{temp}} segundos.</p>
+      {%elif nResult == 1%}
+          <p>{{nResult}} resultado em {{temp}} segundos.</p>
+      {%else%}
+        <p></p>
+      {%endif%}
     </section>
 </main>
 {%endblock%}
