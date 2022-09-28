@@ -14,10 +14,20 @@
           <th>Data Matrícula</th>
         </tr>
         <tr>
-            {%for dado in dados%}
+            {%for dado in dadosA%}
             <td>{{dado}}</td>
             {%endfor%}
         </tr> 
+      </table>
+      <table class="tabela">
+        <tr>
+            <th>Grade</th>
+        </tr>
+        {%for dado in dadosG%}
+        <tr>
+            <td>{{dado}}</td>
+        </tr>
+        {%endfor%}
       </table>
       <section class="estatisticasConsulta">
         <h1></h1>

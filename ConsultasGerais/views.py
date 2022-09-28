@@ -26,7 +26,8 @@ def menor18() -> int:
 def entre18E30() -> int:
     with connection.cursor() as cursor:
         cursor.execute(
-            'SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc)) BETWEEN 18 AND 30')
+            'SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc)) BETWEEN 18 AND 30'
+        )
         return int(cursor.fetchone()[0])
 
 
@@ -44,8 +45,19 @@ def dadosAlunos(cpf):
             "numero_matricula, dt_matricula FROM cadastros_aluno, cadastros_matriculaaluno,"
             "cadastros_curso WHERE cadastros_aluno.cpf=%s AND "
             "cadastros_aluno.cpf=cadastros_matriculaaluno.cpf AND "
-            "cadastros_matriculaaluno.cod_c=cadastros_curso.cod_c", (cpf,))
+            "cadastros_matriculaaluno.cod_c=cadastros_curso.cod_c", (cpf,)
+        )
         return cursor.fetchone()
+
+
+def materiasCurso(codCurso):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT nome_disciplina FROM cadastros_grade, cadastros_disciplina,"
+            "cadastros_curso WHERE cadastros_grade.cod_curso=%s AND cadastros_grade.cod_disciplina=cadastros_disciplina.cod_d AND "
+            "cadastros_grade.cod_curso=cadastros_curso.cod_c order by nome_disciplina", (codCurso,)
+        )
+        return cursor.fetchall()
 
 
 @login_required(redirect_field_name='login-system')
@@ -95,7 +107,10 @@ def detalhesAluno(request):
     else:
         cpf = request.GET.get('cpf')
         dadoAluno = dadosAlunos(cpf)
-        print(dadoAluno)
+        codCurso = dadoAluno[3]
+        grade = materiasCurso(codCurso)
+        grade = (materia[0] for materia in grade)
         return render(request, 'ConsultasGerais/detalhesAlunos.html', {
-            'dados': dadoAluno
+            'dadosA': dadoAluno,
+            'dadosG': grade,
         })
