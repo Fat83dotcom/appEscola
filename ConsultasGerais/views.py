@@ -48,8 +48,8 @@ def consultaGeralAlunos(modelo):
 def detalhesEscolaresAlunos(cpf) -> tuple | None:
     with connection.cursor() as cursor:
         cursor.execute(
-            "SELECT nome_aluno, sobrenome_aluno,dt_nasc, cadastros_curso.cod_c, nome_c,"
-            "numero_matricula, dt_matricula FROM cadastros_aluno, cadastros_matriculaaluno,"
+            "SELECT nome_aluno, sobrenome_aluno, dt_nasc, cadastros_curso.cod_c, nome_c, "
+            "numero_matricula, dt_matricula FROM cadastros_aluno, cadastros_matriculaaluno, "
             "cadastros_curso WHERE cadastros_aluno.cpf=%s AND "
             "cadastros_aluno.cpf=cadastros_matriculaaluno.cpf AND "
             "cadastros_matriculaaluno.cod_c=cadastros_curso.cod_c", (cpf,)

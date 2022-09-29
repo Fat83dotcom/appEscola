@@ -6,7 +6,7 @@ from .models import FormConsulta
 from cadastros.models import Aluno
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
-from funcoesUsoGeral import paginacao, log
+from funcoesUsoGeral import paginacao, log, mensagensMaisUsadas
 
 
 def formatadorDatas(dataEntrada):
@@ -60,7 +60,7 @@ def consultas(request):
             contexto['form'] = formulario
             contexto['resp'] = resultadoPesquisa
             contexto['temp'] = round(log, 3)
-            mensagens(request, 'suc', 'Pesquisa realizada com Sucesso')
+            mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
             return render(request, 'ConsultasAvancadas/consultaAvancada.html', contexto)
         except Exception as erro:
             mensagens(request, 'err', erro)

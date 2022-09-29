@@ -25,7 +25,7 @@
       
     {% for dados in resp%} 
         <tr>
-          <form action="{%url 'detalhes-aluno'%}" method="get" target="_blank">
+          <form action="{%url 'detalhes-aluno'%}" method="get">
             <td><input type="hidden" name="cpf" value="{{dados.cpf}}"><button type="submit" id="btnConsult">
               {{dados.cpf}}</button></td>
           </form>
