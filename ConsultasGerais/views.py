@@ -62,13 +62,13 @@ def detalhesEscolaresAlunos(cpf) -> tuple | None:
 def detalhesEscolaresCurso(codCurso) -> list[tuple]:
     with connection.cursor() as cursor:
         cursor.execute(
-            'SELECT cadastros_curso.cod_c, nome_c, cod_d, nome_disciplina, cadastros_professor.matricula_prof, '
+            'SELECT cadastros_curso.cod_c, nome_c, cod_grade, cod_d, nome_disciplina, cadastros_professor.matricula_prof, '
             'nome_prof, sobrenome_prof FROM cadastros_curso INNER JOIN cadastros_matriculaaluno '
             'ON(cadastros_curso.cod_c=cadastros_matriculaaluno.cod_c) INNER JOIN cadastros_grade '
             'ON(cadastros_matriculaaluno.cod_c=cadastros_grade.cod_curso) INNER JOIN cadastros_disciplina '
             'ON(cadastros_grade.cod_disciplina=cadastros_disciplina.cod_d) INNER JOIN cadastros_professor '
             'ON(cadastros_disciplina.matricula_prof=cadastros_professor.matricula_prof) WHERE cadastros_matriculaaluno.cod_c=%s'
-            'GROUP BY cadastros_curso.cod_c, nome_c, cod_d, nome_disciplina, cadastros_professor.matricula_prof, '
+            'GROUP BY cadastros_curso.cod_c, nome_c, cod_grade, cod_d, nome_disciplina, cadastros_professor.matricula_prof, '
             'sobrenome_prof, nome_prof ORDER BY nome_prof', (codCurso,)
         )
         return cursor.fetchall()
@@ -169,18 +169,24 @@ def detalhesCurso(request):
     if request.method != 'GET':
         return render(request, 'ConsultasGerais/detalhesCursos.html')
     else:
-        codCurso = request.GET.get('codC')
-        resultadoPesquisa, log = detalhesEscolaresCurso(codCurso)
-        codDisciplina, nomeDisciplina = resultadoPesquisa[0][0], resultadoPesquisa[0][1]
-        resultadoPesquisa = [tupla[2::] for tupla in resultadoPesquisa]
-        nAlunos, nDisciplinas, departamento = estatisticaCurso(codCurso)
-        return render(request, 'ConsultasGerais/detalhesCursos.html', {
-            'dadosC': resultadoPesquisa,
-            'temp': round(log, 3),
-            'pResult': len(resultadoPesquisa),
-            'codC': codDisciplina,
-            'nomeC': nomeDisciplina,
-            'estatAluno': nAlunos[0],
-            'estatDisci': nDisciplinas[0],
-            'estatDep': departamento[0],
-        })
+        try:
+            codCurso = request.GET.get('codC')
+            resultadoPesquisa, log = detalhesEscolaresCurso(codCurso)
+            codDisciplina, nomeDisciplina, codGrade = resultadoPesquisa[0][0], resultadoPesquisa[0][1], resultadoPesquisa[0][2]
+            resultadoPesquisa = [tupla[3::] for tupla in resultadoPesquisa]
+            nAlunos, nDisciplinas, departamento = estatisticaCurso(codCurso)
+            mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
+            return render(request, 'ConsultasGerais/detalhesCursos.html', {
+                'dadosC': resultadoPesquisa,
+                'temp': round(log, 3),
+                'pResult': len(resultadoPesquisa),
+                'codC': codDisciplina,
+                'nomeC': nomeDisciplina,
+                'codG': codGrade,
+                'estatAluno': nAlunos[0],
+                'estatDisci': nDisciplinas[0],
+                'estatDep': departamento[0],
+            })
+        except Exception as erro:
+            mensagens(request, 'err', f'{mensagensMaisUsadas["consFal"]}... {erro}')
+            return redirect('consulta-curso')
