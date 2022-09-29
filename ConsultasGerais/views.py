@@ -59,7 +59,7 @@ def detalhesEscolaresAlunos(cpf) -> tuple | None:
 
 
 @log
-def detalhesEscolaresCurso(codCurso):
+def detalhesEscolaresCurso(codCurso) -> list[tuple]:
     with connection.cursor() as cursor:
         cursor.execute(
             'SELECT cadastros_curso.cod_c, nome_c, cod_d, nome_disciplina, cadastros_professor.matricula_prof, '
@@ -82,6 +82,24 @@ def materiasCurso(codCurso) -> list[tuple]:
             "cadastros_grade.cod_curso=cadastros_curso.cod_c order by nome_disciplina", (codCurso,)
         )
         return cursor.fetchall()
+
+
+def estatisticaCurso(codC) -> tuple | None:
+    with connection.cursor() as cursor:
+        cursor.execute(
+            'SELECT COUNT(cpf) FROM cadastros_matriculaaluno WHERE cod_c=%s', (codC, )
+        )
+        nAlunos = cursor.fetchone()
+        cursor.execute(
+            'SELECT COUNT(cod_disciplina) FROM cadastros_grade WHERE cod_curso=%s', (codC, )
+        )
+        nDisciplinas = cursor.fetchone()
+        cursor.execute(
+            'SELECT nome_dep FROM cadastros_curso INNER JOIN cadastros_departamento '
+            'ON(cadastros_curso.cod_dep=cadastros_departamento.cod_dep) WHERE cod_c=%s', (codC, )
+        )
+        departamento = cursor.fetchone()
+        return (nAlunos, nDisciplinas, departamento)
 
 
 @login_required(redirect_field_name='login-system')
@@ -139,7 +157,7 @@ def detalhesAluno(request):
                 'dadosA': dadoAluno,
                 'dadosG': grade,
                 'temp': round(log, 3),
-                'nResult': len(dadoAluno)
+                'pResult': len(dadoAluno),
             })
         except Exception:
             mensagens(request, 'err', f"{mensagensMaisUsadas['consFal']}... Aluno {cpf} não matriculado.")
@@ -155,11 +173,14 @@ def detalhesCurso(request):
         resultadoPesquisa, log = detalhesEscolaresCurso(codCurso)
         codDisciplina, nomeDisciplina = resultadoPesquisa[0][0], resultadoPesquisa[0][1]
         resultadoPesquisa = [tupla[2::] for tupla in resultadoPesquisa]
-        print(resultadoPesquisa)
+        nAlunos, nDisciplinas, departamento = estatisticaCurso(codCurso)
         return render(request, 'ConsultasGerais/detalhesCursos.html', {
             'dadosC': resultadoPesquisa,
             'temp': round(log, 3),
-            'nResult': len(resultadoPesquisa),
+            'pResult': len(resultadoPesquisa),
             'codC': codDisciplina,
             'nomeC': nomeDisciplina,
+            'estatAluno': nAlunos[0],
+            'estatDisci': nDisciplinas[0],
+            'estatDep': departamento[0],
         })
