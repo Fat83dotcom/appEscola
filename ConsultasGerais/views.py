@@ -153,8 +153,13 @@ def detalhesCurso(request):
     else:
         codCurso = request.GET.get('codC')
         resultadoPesquisa, log = detalhesEscolaresCurso(codCurso)
+        codDisciplina, nomeDisciplina = resultadoPesquisa[0][0], resultadoPesquisa[0][1]
+        resultadoPesquisa = [tupla[2::] for tupla in resultadoPesquisa]
+        print(resultadoPesquisa)
         return render(request, 'ConsultasGerais/detalhesCursos.html', {
             'dadosC': resultadoPesquisa,
             'temp': round(log, 3),
             'nResult': len(resultadoPesquisa),
+            'codC': codDisciplina,
+            'nomeC': nomeDisciplina,
         })

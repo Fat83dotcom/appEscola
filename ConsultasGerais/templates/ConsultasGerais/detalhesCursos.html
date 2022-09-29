@@ -5,15 +5,18 @@
     <section id="consultaScroll">
       <table class="tabela">
         <tr>
-            <th>Código Curso</th>
-            <th>Nome</th>
-            <th>Código Disciplina</th>
-            <th>Nome</th>
-            <th>Matrícula Professor</th>
-            <th>Nome</th>
-            <th>Sobrenome</th>
+          <th colspan="5">Grade</th>
         </tr>
-        
+        <tr>
+          <th colspan="5">{{codC}} / {{nomeC}}</th>
+        </tr>
+        <tr>
+          <th>Código Disciplina</th>
+          <th>Nome</th>
+          <th>Matrícula Professor</th>
+          <th>Nome</th>
+          <th>Sobrenome</th>
+        </tr>
         {%for tupla in dadosC%}
         <tr>
           {%for dado in tupla%}
@@ -22,6 +25,14 @@
         </tr>
         {%endfor%}
       </table>
+      <section class="estatisticasConsulta">
+        <h1>Estatísticas</h1>
+        <article >
+          <p>Total Alunos Matriculados: {{i}}</p>
+          <p>Qtd Disciplinas: {{i}}</p>
+          <p>Departamento: {{i}}</p>
+        </article>
+      </section>
     </section>
     <section class="estatisticasConsulta">
       {%if nResult > 1%}
