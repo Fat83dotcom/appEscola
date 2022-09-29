@@ -57,6 +57,23 @@ def detalhesEscolaresAlunos(cpf) -> tuple | None:
         return cursor.fetchone()
 
 
+@log
+def detalhesEscolaresCurso(codCurso):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            'select cadastros_curso.cod_c, nome_c, cod_d, nome_disciplina, cadastros_professor.matricula_prof, '
+            'nome_prof, sobrenome_prof from cadastros_curso inner join cadastros_matriculaaluno '
+            'on(cadastros_curso.cod_c=cadastros_matriculaaluno.cod_c) inner join cadastros_grade '
+            'on(cadastros_matriculaaluno.cod_c=cadastros_grade.cod_curso) inner join cadastros_disciplina '
+            'on(cadastros_grade.cod_disciplina=cadastros_disciplina.cod_d) inner join cadastros_professor '
+            'on(cadastros_disciplina.matricula_prof=cadastros_professor.matricula_prof) where cadastros_matriculaaluno.cod_c=%s'
+            'group by cadastros_curso.cod_c, nome_c, cod_d, nome_disciplina, cadastros_professor.matricula_prof, '
+            'sobrenome_prof, nome_prof order by nome_disciplina;',
+            (codCurso,)
+        )
+        return cursor.fetchall()
+
+
 def materiasCurso(codCurso) -> list[tuple]:
     with connection.cursor() as cursor:
         cursor.execute(
@@ -129,3 +146,17 @@ def detalhesAluno(request):
         except Exception:
             mensagens(request, 'err', f"{mensagensMaisUsadas['consFal']}... Aluno {cpf} não matriculado.")
             return redirect('cadastrar-matricula')
+
+
+@login_required(redirect_field_name='login-system')
+def detalhesCurso(request):
+    if request.method != 'GET':
+        return render(request, 'ConsultasGerais/detalhesCursos.html')
+    else:
+        codCurso = request.GET.get('codC')
+        resultadoPesquisa, log = detalhesEscolaresCurso(codCurso)
+        return render(request, 'ConsultasGerais/detalhesCursos.html', {
+            'dadosC': resultadoPesquisa,
+            'temp': round(log, 3),
+            'nResult': len(resultadoPesquisa),
+        })

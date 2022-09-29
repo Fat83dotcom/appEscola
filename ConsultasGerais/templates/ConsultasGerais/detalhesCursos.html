@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+{%block conteudo%}
+<main>
+    {% include 'parciais/_mensagens.html'%}
+    <section id="consultaScroll">
+      <table class="tabela">
+        <tr>
+            <th>Código Curso</th>
+            <th>Nome</th>
+            <th>Código Disciplina</th>
+            <th>Nome</th>
+            <th>Matrícula Professor</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+        </tr>
+        
+        {%for tupla in dadosC%}
+        <tr>
+          {%for dado in tupla%}
+            <td>{{dado}}</td>
+          {%endfor%}
+        </tr>
+        {%endfor%}
+      </table>
+    </section>
+    <section class="estatisticasConsulta">
+      {%if nResult > 1%}
+        <p>{{nResult}} resultados em {{temp}} segundos.</p>
+      {%elif nResult == 1%}
+          <p>{{nResult}} resultado em {{temp}} segundos.</p>
+      {%else%}
+        <p></p>
+      {%endif%}
+    </section>
+</main>
+{%endblock%}
