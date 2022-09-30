@@ -38,18 +38,17 @@
     </table>
     {%endif%}
     <section class="estatisticasConsulta">
-      
-        {%if nResult > 1%}
-          <h1>Estatísticas:</h1>
-            <p>{{nResult}} resultados em {{temp}} segundos.</p>
-            <p>{{nResultPag}} resultados mosntrados na pagina.</p>
-        {%elif nResult == 1%}
-          <h1>Estatísticas:</h1>
-            <p>{{nResult}} resultado em {{temp}} segundos.</p>
-            <p>{{nResultPag}} resultado mosntrado na pagina.</p>
-        {%else%}
-          
-        {%endif%}
+      {%if nResult > 1%}
+        <h1>Estatísticas:</h1>
+          <p>{{nResult}} resultados em {{temp}} segundos.</p>
+          <p>{{nResultPag}} resultados mosntrados na pagina.</p>
+      {%elif nResult == 1%}
+        <h1>Estatísticas:</h1>
+          <p>{{nResult}} resultado em {{temp}} segundos.</p>
+          <p>{{nResultPag}} resultado mosntrado na pagina.</p>
+      {%else%}
+        
+      {%endif%}
     </section>
   </section>
   <section class="secaoPaginacao">
