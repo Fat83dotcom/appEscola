@@ -22,30 +22,30 @@
         <th>Nascimento</th>
         <th>Endereço</th>
       </tr>
-      
-    {% for dados in resp%} 
+      {% for dados in resp%} 
         <tr>
           <form action="{%url 'detalhes-aluno'%}" method="get">
-            <td><input type="hidden" name="cpf" value="{{dados.cpf}}"><button type="submit" id="btnConsult">
-              {{dados.cpf}}</button></td>
+          <td><input type="hidden" name="cpf" value="{{dados.cpf}}">
+          <button type="submit" id="btnConsult">
+          {{dados.cpf}}</button></td>
           </form>
-            <td>{{dados.nome_aluno}}</td>
-            <td>{{dados.sobrenome_aluno}}</td>
-            <td>{{dados.dt_nasc}}</td>
-            <td>{{dados.endereco}}</td>
+          <td>{{dados.nome_aluno}}</td>
+          <td>{{dados.sobrenome_aluno}}</td>
+          <td>{{dados.dt_nasc}}</td>
+          <td>{{dados.endereco}}</td>
         </tr>
-    {%endfor%}
+      {%endfor%}
     </table>
     {%endif%}
     <section class="estatisticasConsulta">
       {%if nResult > 1%}
         <h1>Estatísticas:</h1>
-          <p>{{nResult}} resultados em {{temp}} segundos.</p>
-          <p>{{nResultPag}} resultados mosntrados na pagina.</p>
+        <p>{{nResult}} resultados em {{temp}} segundos.</p>
+        <p>{{nResultPag}} resultados mosntrados na pagina.</p>
       {%elif nResult == 1%}
         <h1>Estatísticas:</h1>
-          <p>{{nResult}} resultado em {{temp}} segundos.</p>
-          <p>{{nResultPag}} resultado mosntrado na pagina.</p>
+        <p>{{nResult}} resultado em {{temp}} segundos.</p>
+        <p>{{nResultPag}} resultado mosntrado na pagina.</p>
       {%else%}
         
       {%endif%}
@@ -53,17 +53,17 @@
   </section>
   <section class="secaoPaginacao">
     <nav id="paginacao">
-        {%for pagina in resp.paginator.page_range%}
-            {%if resp.number == pagina%}
-                <div class="caixaDasPaginas linkAtivo">
-                    <a class="linkPaginacao" href="?p={{pagina}}&pesquisa={{request.GET.pesquisa}}">{{pagina}}</a>
-                </div>
-            {%else%}
-                <div class="caixaDasPaginas">
-                    <a class="linkPaginacao" href="?p={{pagina}}&pesquisa={{request.GET.pesquisa}}">{{pagina}}</a>
-                </div>
-            {%endif%} 
-        {%endfor%}
+      {%for pagina in resp.paginator.page_range%}
+        {%if resp.number == pagina%}
+          <div class="caixaDasPaginas linkAtivo">
+            <a class="linkPaginacao" href="?p={{pagina}}&pesquisa={{request.GET.pesquisa}}">{{pagina}}</a>
+          </div>
+        {%else%}
+          <div class="caixaDasPaginas">
+            <a class="linkPaginacao" href="?p={{pagina}}&pesquisa={{request.GET.pesquisa}}">{{pagina}}</a>
+          </div>
+        {%endif%} 
+      {%endfor%}
     </nav>
   </section>
 </main>

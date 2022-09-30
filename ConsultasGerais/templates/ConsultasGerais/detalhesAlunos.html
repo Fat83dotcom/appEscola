@@ -1,43 +1,43 @@
 {%extends 'base.html'%}
 {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
-    <section id="consultaScroll">
-      <table class="tabela">
-        <tr>
-          <th>Nome</th>
-          <th>Sobrenome</th>
-          <th>Data Nasc.</th>
-          <th>Código Curso</th>
-          <th>Nome Curso</th>
-          <th>Número Matrícula</th>
-          <th>Data Matrícula</th>
-        </tr>
-        <tr>
-            {%for dado in dadosA%}
-            <td>{{dado}}</td>
-            {%endfor%}
-        </tr> 
-      </table>
-      <table class="tabela">
-        <tr>
-            <th>Grade</th>
-        </tr>
-        {%for dado in dadosG%}
-        <tr>
-            <td>{{dado}}</td>
-        </tr>
+  {% include 'parciais/_mensagens.html'%}
+  <section id="consultaScroll">
+    <table class="tabela">
+      <tr>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Data Nasc.</th>
+        <th>Código Curso</th>
+        <th>Nome Curso</th>
+        <th>Número Matrícula</th>
+        <th>Data Matrícula</th>
+      </tr>
+      <tr>
+        {%for dado in dadosA%}
+          <td>{{dado}}</td>
         {%endfor%}
-      </table>
-    </section>
-    <section class="estatisticasConsulta">
-      {%if pResult > 1%}
-        <p>{{pResult}} resultados em {{temp}} segundos.</p>
-      {%elif pResult == 1%}
-          <p>{{pResult}} resultado em {{temp}} segundos.</p>
-      {%else%}
-        <p></p>
-      {%endif%}
-    </section>
+      </tr> 
+    </table>
+    <table class="tabela">
+      <tr>
+        <th>Grade</th>
+      </tr>
+      {%for dado in dadosG%}
+      <tr>
+        <td>{{dado}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+  </section>
+  <section class="estatisticasConsulta">
+    {%if pResult > 1%}
+      <p>{{pResult}} resultados em {{temp}} segundos.</p>
+    {%elif pResult == 1%}
+      <p>{{pResult}} resultado em {{temp}} segundos.</p>
+    {%else%}
+      <p></p>
+    {%endif%}
+  </section>
 </main>
 {%endblock%}

@@ -12,8 +12,8 @@
       {%for dado in result%}
       <tr>
         <form action="{%url 'detalhes-curso'%}" method="get">
-          <td><input type="hidden" name="codC" value="{{dado.cod_c}}"><button type="submit" id="btnConsult">
-            {{dado.cod_c}}</button></td>
+        <td><input type="hidden" name="codC" value="{{dado.cod_c}}"><button type="submit" id="btnConsult">
+        {{dado.cod_c}}</button></td>
         </form>
         <td>{{dado.nome_c}}</td>
         <td>{{dado.cod_dep}}</td>

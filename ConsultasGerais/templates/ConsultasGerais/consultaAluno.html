@@ -11,16 +11,16 @@
         <th>Cod/Endereço</th>
       </tr>
       {%for dado in dadosJuntados%}
-      <tr>
-        <form action="{%url 'detalhes-aluno'%}" method="get">
+        <tr>
+          <form action="{%url 'detalhes-aluno'%}" method="get">
           <td><input type="hidden" name="cpf" value="{{dado.cpf}}"><button type="submit" id="btnConsult">
-            {{dado.cpf}}</button></td>
-        </form>
-        <td>{{dado.nome_aluno}}</td>
-        <td>{{dado.sobrenome_aluno}}</td>
-        <td>{{dado.dt_nasc}}</td>
-        <td>{{dado.endereco}}</td>
-      </tr>
+          {{dado.cpf}}</button></td>
+          </form>
+          <td>{{dado.nome_aluno}}</td>
+          <td>{{dado.sobrenome_aluno}}</td>
+          <td>{{dado.dt_nasc}}</td>
+          <td>{{dado.endereco}}</td>
+        </tr>
       {%endfor%}
     </table>
     <section class="estatisticasConsulta">
@@ -33,10 +33,10 @@
         <p>{{entre18e30}} Alunos entre 18 e 30 anos.</p>
         <p>{{acima30}} Alunos acima de 30 anos.</p>
         {%if nResult > 1%}
-            <p>{{nResult}} resultados em {{temp}} segundos.</p>
+          <p>{{nResult}} resultados em {{temp}} segundos.</p>
         {%elif nResult == 1%}
           <h1>Estatísticas:</h1>
-            <p>{{nResult}} resultado em {{temp}} segundos.</p>
+          <p>{{nResult}} resultado em {{temp}} segundos.</p>
         {%else%}
           <p></p>
         {%endif%}
@@ -45,22 +45,19 @@
   </section>
   <section class="secaoPaginacao">
     <nav id="paginacao">
-        {%for pagina in dadosJuntados.paginator.page_range%}
-            {%if dadosJuntados.number == pagina%}
-                <div class="caixaDasPaginas linkAtivo">
-                    <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
-                </div>
-            {%else%}
-                <div class="caixaDasPaginas">
-                    <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
-                </div>
-            {%endif%} 
-        {%endfor%}
+      {%for pagina in dadosJuntados.paginator.page_range%}
+        {%if dadosJuntados.number == pagina%}
+          <div class="caixaDasPaginas linkAtivo">
+            <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
+          </div>
+        {%else%}
+          <div class="caixaDasPaginas">
+            <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
+          </div>
+        {%endif%} 
+      {%endfor%}
     </nav>
   </section>
 </main>
 {%endblock%}
-
-
-
 <a href="{%url 'detalhes-aluno'%}" target="_blank"></a>

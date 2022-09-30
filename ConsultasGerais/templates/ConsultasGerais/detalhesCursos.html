@@ -1,48 +1,48 @@
 {%extends 'base.html'%}
 {%block conteudo%}
 <main>
-    {% include 'parciais/_mensagens.html'%}
-    <section id="consultaScroll">
-      <table class="tabela">
-        <tr>
-          <th colspan="5">Grade</th>
-        </tr>
-        <tr>
-          <th colspan="5">{{codC}} / {{nomeC}} / {{codG}}</th>
-        </tr>
-        <tr>
-          <th>Código Disciplina</th>
-          <th>Nome</th>
-          <th>Matrícula Professor</th>
-          <th>Nome</th>
-          <th>Sobrenome</th>
-        </tr>
-        {%for tupla in dadosC%}
-        <tr>
-          {%for dado in tupla%}
-            <td>{{dado}}</td>
-          {%endfor%}
-        </tr>
+  {% include 'parciais/_mensagens.html'%}
+  <section id="consultaScroll">
+    <table class="tabela">
+      <tr>
+        <th colspan="5">Grade</th>
+      </tr>
+      <tr>
+        <th colspan="5">{{codC}} / {{nomeC}} / {{codG}}</th>
+      </tr>
+      <tr>
+        <th>Código Disciplina</th>
+        <th>Nome</th>
+        <th>Matrícula Professor</th>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+      </tr>
+      {%for tupla in dadosC%}
+      <tr>
+        {%for dado in tupla%}
+          <td>{{dado}}</td>
         {%endfor%}
-      </table>
-      <section class="estatisticasConsulta">
-        <h1>Estatísticas</h1>
-        <article >
-          <p>Código Grade: {{codG}}</p>
-          <p>Total Alunos Matriculados: {{estatAluno}}</p>
-          <p>Qtd Disciplinas: {{estatDisci}}</p>
-          <p>Departamento: {{estatDep}}</p>
-        </article>
-      </section>
-    </section>
+      </tr>
+      {%endfor%}
+    </table>
     <section class="estatisticasConsulta">
-      {%if pResult > 1%}
-        <p>{{pResult}} resultados em {{temp}} segundos.</p>
-      {%elif pResult == 1%}
-          <p>{{pResult}} resultado em {{temp}} segundos.</p>
-      {%else%}
-        <p></p>
-      {%endif%}
+      <h1>Estatísticas</h1>
+      <article >
+        <p>Código Grade: {{codG}}</p>
+        <p>Total Alunos Matriculados: {{estatAluno}}</p>
+        <p>Qtd Disciplinas: {{estatDisci}}</p>
+        <p>Departamento: {{estatDep}}</p>
+      </article>
     </section>
+  </section>
+  <section class="estatisticasConsulta">
+    {%if pResult > 1%}
+      <p>{{pResult}} resultados em {{temp}} segundos.</p>
+    {%elif pResult == 1%}
+      <p>{{pResult}} resultado em {{temp}} segundos.</p>
+    {%else%}
+      <p></p>
+    {%endif%}
+  </section>
 </main>
 {%endblock%}
