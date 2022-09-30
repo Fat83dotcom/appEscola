@@ -157,7 +157,7 @@ def detalhesAluno(request):
                 'dadosA': dadoAluno,
                 'dadosG': grade,
                 'temp': round(log, 3),
-                'pResult': len(dadoAluno),
+                'eResult': len(dadoAluno),
             })
         except Exception:
             mensagens(request, 'err', f"{mensagensMaisUsadas['consFal']}... Aluno {cpf} não matriculado.")
@@ -172,14 +172,16 @@ def detalhesCurso(request):
         try:
             codCurso = request.GET.get('codC')
             resultadoPesquisa, log = detalhesEscolaresCurso(codCurso)
-            codDisciplina, nomeDisciplina, codGrade = resultadoPesquisa[0][0], resultadoPesquisa[0][1], resultadoPesquisa[0][2]
-            resultadoPesquisa = [tupla[3::] for tupla in resultadoPesquisa]
+            codDisciplina, nomeDisciplina, codGrade = resultadoPesquisa[0][0],\
+                resultadoPesquisa[0][1], resultadoPesquisa[0][2]
+            nEstat = len(resultadoPesquisa)
+            resultadoPesquisa = (tupla[3::] for tupla in resultadoPesquisa)
             nAlunos, nDisciplinas, departamento = estatisticaCurso(codCurso)
             mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
             return render(request, 'ConsultasGerais/detalhesCursos.html', {
                 'dadosC': resultadoPesquisa,
                 'temp': round(log, 3),
-                'pResult': len(resultadoPesquisa),
+                'eResult': nEstat,
                 'codC': codDisciplina,
                 'nomeC': nomeDisciplina,
                 'codG': codGrade,
