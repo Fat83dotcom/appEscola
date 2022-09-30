@@ -149,6 +149,7 @@ def detalhesAluno(request):
         try:
             cpf = request.GET.get('cpf')
             dadoAluno, log = consultaDetalhesEscolaresAlunos(cpf)
+            nomeAluno, sobrenomeAluno = dadoAluno[0], dadoAluno[1]
             codCurso = dadoAluno[3]
             grade = consultaMateriasCurso(codCurso)
             grade = (materia[0] for materia in grade)
@@ -158,6 +159,8 @@ def detalhesAluno(request):
                 'dadosG': grade,
                 'temp': round(log, 3),
                 'eResult': len(dadoAluno),
+                'nomeAluno': nomeAluno,
+                'sNomeAluno': sobrenomeAluno
             })
         except Exception:
             mensagens(request, 'err', f"{mensagensMaisUsadas['consFal']}... Aluno {cpf} não matriculado.")
