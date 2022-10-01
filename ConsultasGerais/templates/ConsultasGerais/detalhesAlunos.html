@@ -2,7 +2,7 @@
 {%block conteudo%}
 <main>
   {% include 'parciais/_mensagens.html'%}
-  <h1 style="font-size: 24px">Detalhes do Aluno: {{nomeAluno}} {{sNomeAluno}}</h1>
+  <h1 style="font-size: 24px">Detalhes do Aluno: {{nomeAluno}} {{sobrenomeNomeAluno}}</h1>
   <section id="consultaScroll">
     <table class="tabela">
       <tr>
@@ -15,7 +15,7 @@
         <th>Data Matrícula</th>
       </tr>
       <tr>
-        {%for dado in dadosA%}
+        {%for dado in respPesquisaAluno%}
           <td>{{dado}}</td>
         {%endfor%}
       </tr> 
@@ -24,7 +24,7 @@
       <tr>
         <th>Grade</th>
       </tr>
-      {%for dado in dadosG%}
+      {%for dado in respPesquisaGrade%}
         <tr>
           <td>{{dado}}</td>
         </tr>
@@ -32,10 +32,10 @@
     </table>
   </section>
   <section class="estatisticasConsulta">
-    {%if eResult > 1%}
-      <p>{{eResult}} resultados em {{temp}} segundos.</p>
-    {%elif eResult == 1%}
-      <p>{{eResult}} resultado em {{temp}} segundos.</p>
+    {%if qtdTotalPesquisa > 1%}
+      <p>{{qtdTotalPesquisa}} resultados em {{temporizador}} segundos.</p>
+    {%elif qtdTotalPesquisa == 1%}
+      <p>{{qtdTotalPesquisa}} resultado em {{temporizador}} segundos.</p>
     {%else%}
       <p></p>
     {%endif%}

@@ -112,7 +112,6 @@ def consultaAluno(request):
         'consultaEntre18E30': '',
         'consultaAcima30': '',
         'temporizador': '',
-        'resultadoTotalEstatistica': '',
     }
     if request.method == 'GET':
         contexto['respPesquisa'], contexto['temporizador'] = consultaGeral(models.Aluno, 'endereco', 'nome_aluno')
@@ -150,21 +149,24 @@ def detalhesAluno(request):
         return render(request, 'ConsultasGerais/detalhesAlunos.html')
     else:
         try:
+            contexto = {
+                'respPesquisaAluno': '',
+                'respPesquisaGrade': '',
+                'qtdTotalPesquisa': '',
+                'temporizador': '',
+                'nomeAluno': '',
+                'sobrenomeAluno': '',
+            }
             cpf = request.GET.get('cpf')
-            dadoAluno, log = consultaDetalhesEscolaresAlunos(cpf)
-            nomeAluno, sobrenomeAluno = dadoAluno[0], dadoAluno[1]
-            codCurso = dadoAluno[3]
-            grade = consultaMateriasCurso(codCurso)
-            grade = (materia[0] for materia in grade)
+            contexto['respPesquisaAluno'], contexto['temporizador'] = consultaDetalhesEscolaresAlunos(cpf)
+            contexto['nomeAluno'], contexto['sobrenomeAluno'] = contexto['respPesquisaAluno'][0], contexto['respPesquisaAluno'][1]
+            codCurso = contexto['respPesquisaAluno'][3]
+            contexto['respPesquisaGrade'] = consultaMateriasCurso(codCurso)
+            contexto['respPesquisaGrade'] = (materia[0] for materia in contexto['respPesquisaGrade'])
+            contexto['qtdTotalPesquisa'], contexto['temporizador'] = len(contexto['respPesquisaAluno']), \
+                round(contexto['temporizador'], 3)
             mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
-            return render(request, 'ConsultasGerais/detalhesAlunos.html', {
-                'dadosA': dadoAluno,
-                'dadosG': grade,
-                'temp': round(log, 3),
-                'eResult': len(dadoAluno),
-                'nomeAluno': nomeAluno,
-                'sNomeAluno': sobrenomeAluno
-            })
+            return render(request, 'ConsultasGerais/detalhesAlunos.html', contexto)
         except Exception:
             mensagens(request, 'err', f"{mensagensMaisUsadas['consFal']}... Aluno {cpf} não matriculado.")
             return redirect('cadastrar-matricula')
