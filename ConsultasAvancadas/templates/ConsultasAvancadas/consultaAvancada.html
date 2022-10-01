@@ -11,7 +11,7 @@
     </form>
   </section>
   <section id="consultaScroll">
-    {%if nResult < 1%}
+    {%if resultadoTotalEstatistica < 1%}
       <!-- <p></p> -->
     {%else%}
     <table class="tabela">
@@ -22,7 +22,7 @@
         <th>Nascimento</th>
         <th>Endereço</th>
       </tr>
-      {% for dados in resp%} 
+      {% for dados in respPesquisa%} 
         <tr>
           <form action="{%url 'detalhes-aluno'%}" method="get">
           <td><input type="hidden" name="cpf" value="{{dados.cpf}}">
@@ -38,14 +38,14 @@
     </table>
     {%endif%}
     <section class="estatisticasConsulta">
-      {%if nResult > 1%}
+      {%if resultadoTotalEstatistica > 1%}
         <h1>Estatísticas:</h1>
-        <p>{{nResult}} resultados em {{temp}} segundos.</p>
-        <p>{{nResultPag}} resultados mosntrados na pagina.</p>
-      {%elif nResult == 1%}
+        <p>{{resultadoTotalEstatistica}} resultados em {{temporizador}} segundos.</p>
+        <p>{{resultadoPPagina}} resultados mosntrados na pagina.</p>
+      {%elif resultadoTotalEstatistica == 1%}
         <h1>Estatísticas:</h1>
-        <p>{{nResult}} resultado em {{temp}} segundos.</p>
-        <p>{{nResultPag}} resultado mosntrado na pagina.</p>
+        <p>{{resultadoTotalEstatistica}} resultado em {{temporizador}} segundos.</p>
+        <p>{{resultadoPPagina}} resultado mosntrado na pagina.</p>
       {%else%}
 
       {%endif%}
@@ -53,8 +53,8 @@
   </section>
   <section class="secaoPaginacao">
     <nav id="paginacao">
-      {%for pagina in resp.paginator.page_range%}
-        {%if resp.number == pagina%}
+      {%for pagina in respPesquisa.paginator.page_range%}
+        {%if respPesquisa.number == pagina%}
           <div class="caixaDasPaginas linkAtivo">
             <a class="linkPaginacao" href="?p={{pagina}}&pesquisa={{request.GET.pesquisa}}">{{pagina}}</a>
           </div>

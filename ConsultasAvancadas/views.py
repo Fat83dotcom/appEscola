@@ -33,10 +33,10 @@ def consultas(request):
     formulario = FormConsulta(request.GET)
     contexto = {
         'form': '',
-        'resp': '',
-        'nResult': '',
-        'nResultPag': '',
-        'temp': ''
+        'respPesquisa': '',
+        'resultadoTotalEstatistica': '',
+        'resultadoPPagina': '',
+        'temporizador': '',
     }
     if formulario.is_valid():
         try:
@@ -45,31 +45,30 @@ def consultas(request):
                 mensagens(request, 'war', 'Digite um nome, sobrenome, data de nascimento, cpf ou parte deles.')
                 return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
                     'form': formulario,
-                    'nResult': 0,
+                    'resultadoTotalEstatistica': 0,
                 })
-            resultadoPesquisa, log = pesquisaAvancada(pesquisa, Aluno)
-            contexto['nResult'] = len(resultadoPesquisa)
-            if len(resultadoPesquisa) == 0:
+            contexto['respPesquisa'], contexto['temporizador'] = pesquisaAvancada(pesquisa, Aluno)
+            contexto['resultadoTotalEstatistica'] = len(contexto['respPesquisa'])
+            if len(contexto['respPesquisa']) == 0:
                 mensagens(request, 'war', f'Não foram encotrados dados relacionados a {pesquisa}')
                 return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
                     'form': formulario,
-                    'nResult': 0,
+                    'resultadoTotalEstatistica': 0,
                 })
-            resultadoPesquisa = paginacao(request, resultadoPesquisa, 10)
-            contexto['nResultPag'] = len(resultadoPesquisa)
+            contexto['respPesquisa'] = paginacao(request, contexto['respPesquisa'], 10)
+            contexto['resultadoPPagina'] = len(contexto['respPesquisa'])
             contexto['form'] = formulario
-            contexto['resp'] = resultadoPesquisa
-            contexto['temp'] = round(log, 3)
+            contexto['temporizador'] = round(contexto['temporizador'], 3)
             mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
             return render(request, 'ConsultasAvancadas/consultaAvancada.html', contexto)
         except Exception as erro:
             mensagens(request, 'err', erro)
             return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
                 'form': formulario,
-                'nResult': 0,
+                'resultadoTotalEstatistica': 0,
             })
     else:
         return render(request, 'ConsultasAvancadas/consultaAvancada.html', {
             'form': formulario,
-            'nResult': 0,
+            'resultadoTotalEstatistica': 0,
         })
