@@ -9,7 +9,7 @@
         <th>Nome</th>
         <th>Departamento</th>
       </tr>
-      {%for dado in result%}
+      {%for dado in respPesquisa%}
       <tr>
         <form action="{%url 'detalhes-curso'%}" method="get">
         <td><input type="hidden" name="codC" value="{{dado.cod_c}}"><button type="submit" id="btnConsult">
@@ -23,24 +23,16 @@
       <section class="estatisticasConsulta">
         <h1>Estatísticas</h1>
         <article >
-          <p>Número Total Cursos: {{nCursos}}</p>
+          <p>Número Total Cursos: {{qtdCursos}}</p>
+          {%if qtdCursos > 1%}
+            <p>{{qtdCursos}} resultados em {{temporizador}} segundos.</p>
+          {%elif qtdCursos == 1%}
+            <p>{{qtdCursos}} resultado em {{temporizador}} segundos.</p>
+          {%else%}
+            <!-- <p></p> -->
+          {%endif%}
         </article>
       </section>
-  </section>
-  <section class="secaoPaginacao">
-    <nav id="paginacao">
-      {%for pagina in dadosJuntados.paginator.page_range%}
-        {%if dadosJuntados.number == pagina%}
-          <div class="caixaDasPaginas linkAtivo">
-            <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
-          </div>
-        {%else%}
-          <div class="caixaDasPaginas">
-            <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
-          </div>
-        {%endif%} 
-      {%endfor%}
-    </nav>
   </section>
 </main>
 {%endblock%}

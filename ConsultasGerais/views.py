@@ -6,6 +6,11 @@ from django.contrib.auth.decorators import login_required
 from funcoesUsoGeral import paginacao, mensagens, mensagensMaisUsadas, log
 
 
+@log
+def consultaGeral(modelo, nomeForeingKey: str, nomeColunaOrdenacao: str):
+    return modelo.objects.prefetch_related(nomeForeingKey).order_by(nomeColunaOrdenacao)
+
+
 def consultaIdadeMedia() -> float:
     with connection.cursor() as cursor:
         try:
@@ -36,12 +41,6 @@ def consultaAcima30() -> int:
         cursor.execute(
             'SELECT COUNT(*) FROM cadastros_aluno WHERE EXTRACT(YEAR FROM AGE(dt_nasc))>30')
         return int(cursor.fetchone()[0])
-
-
-@log
-def consultaGeralAlunos(modelo):
-    return modelo.objects.prefetch_related(
-            'endereco').order_by('nome_aluno')
 
 
 @log
@@ -116,7 +115,7 @@ def consultaAluno(request):
         'resultadoTotalEstatistica': '',
     }
     if request.method == 'GET':
-        contexto['respPesquisa'], contexto['temporizador'] = consultaGeralAlunos(models.Aluno)
+        contexto['respPesquisa'], contexto['temporizador'] = consultaGeral(models.Aluno, 'endereco', 'nome_aluno')
         contexto['respPesquisa'] = paginacao(request, contexto['respPesquisa'], 20)
         contexto['qtdTotalAlunos'], contexto['qtdPPaginaAluno'] = models.Aluno.objects.count(), len(contexto['respPesquisa'])
         contexto['consultaIdadeMedia'], contexto['consultaMenor18'], contexto['consultaEntre18E30'], contexto['consultaAcima30'] = \
@@ -128,12 +127,14 @@ def consultaAluno(request):
 
 @login_required(redirect_field_name='login-system')
 def consultaCurso(request):
-    resultadoPesquisa = models.Curso.objects.prefetch_related('cod_dep')
-    nCursos = len(resultadoPesquisa)
     contexto = {
-        'result': resultadoPesquisa,
-        'nCursos': nCursos
+        'respPesquisa': '',
+        'qtdCursos': '',
+        'temporizador': '',
     }
+    contexto['respPesquisa'], contexto['temporizador'] = consultaGeral(models.Curso, 'cod_dep', 'cod_dep')
+    contexto['qtdCursos'] = len(contexto['respPesquisa'])
+    contexto['temporizador'] = round(contexto['temporizador'], 4)
     mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
     return render(request, 'ConsultasGerais/consultaCurso.html', contexto)
 
