@@ -178,25 +178,27 @@ def detalhesCurso(request):
         return render(request, 'ConsultasGerais/detalhesCursos.html')
     else:
         try:
+            contexto = {
+                'respPesquisaCurso': '',
+                'codCurso': '',
+                'nomeCurso': '',
+                'codGrade': '',
+                'qtdDisciplinas': '',
+                'qtdAlunos': '',
+                'departamento': '',
+                'temporizador': '',
+            }
             codCurso = request.GET.get('codC')
-            resultadoPesquisa, log = consultaDetalhesEscolaresCurso(codCurso)
-            codDisciplina, nomeDisciplina, codGrade = resultadoPesquisa[0][0],\
-                resultadoPesquisa[0][1], resultadoPesquisa[0][2]
-            nEstat = len(resultadoPesquisa)
-            resultadoPesquisa = (tupla[3::] for tupla in resultadoPesquisa)
-            nAlunos, nDisciplinas, departamento = consultaEstatisticaCurso(codCurso)
+            contexto['respPesquisaCurso'], contexto['temporizador'] = consultaDetalhesEscolaresCurso(codCurso)
+            contexto['codCurso'], contexto['nomeCurso'], contexto['codGrade'] = \
+                contexto['respPesquisaCurso'][0][0], contexto['respPesquisaCurso'][0][1], \
+                contexto['respPesquisaCurso'][0][2]
+            contexto['respPesquisaCurso'] = (tupla[3:] for tupla in contexto['respPesquisaCurso'])
+            contexto['qtdAlunos'], contexto['qtdDisciplinas'], contexto['departamento'] = \
+                consultaEstatisticaCurso(codCurso)
+            contexto['temporizador'] = round(contexto['temporizador'], 3)
             mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
-            return render(request, 'ConsultasGerais/detalhesCursos.html', {
-                'dadosC': resultadoPesquisa,
-                'codC': codDisciplina,
-                'nomeC': nomeDisciplina,
-                'codG': codGrade,
-                'temp': round(log, 3),
-                'eResult': nEstat,
-                'estatAluno': nAlunos,
-                'estatDisci': nDisciplinas,
-                'estatDep': departamento,
-            })
+            return render(request, 'ConsultasGerais/detalhesCursos.html', contexto)
         except Exception as erro:
             mensagens(request, 'err', f'{mensagensMaisUsadas["consFal"]}... {erro}')
             return redirect('consulta-curso')

@@ -2,14 +2,14 @@
 {%block conteudo%}
 <main>
   {% include 'parciais/_mensagens.html'%}
-  <h1 style="font-size: 24px">Detalhes do Curso: {{nomeC}}</h1>
+  <h1 style="font-size: 24px">Detalhes do Curso: {{nomenomeCurso}}</h1>
   <section id="consultaScroll">
     <table class="tabela">
       <tr>
         <th colspan="5">Grade</th>
       </tr>
       <tr>
-        <th colspan="5">{{codC}} / {{nomeC}} / {{codG}}</th>
+        <th colspan="5">{{codCurso}} / {{nomeCurso}} / {{codGrade}}</th>
       </tr>
       <tr>
         <th>Código Disciplina</th>
@@ -18,7 +18,7 @@
         <th>Nome</th>
         <th>Sobrenome</th>
       </tr>
-      {%for tupla in dadosC%}
+      {%for tupla in respPesquisaCurso%}
       <tr>
         {%for dado in tupla%}
           <td>{{dado}}</td>
@@ -29,18 +29,18 @@
     <section class="estatisticasConsulta">
       <h1>Estatísticas</h1>
       <article >
-        <p>Código Grade: {{codG}}</p>
-        <p>Total Alunos Matriculados: {{estatAluno}}</p>
-        <p>Qtd Disciplinas: {{estatDisci}}</p>
-        <p>Departamento: {{estatDep}}</p>
+        <p>Código Grade: {{codGrade}}</p>
+        <p>Total Alunos Matriculados: {{qtdAlunos}}</p>
+        <p>Qtd Disciplinas: {{qtdDisciplinas}}</p>
+        <p>Departamento: {{departamento}}</p>
       </article>
     </section>
   </section>
   <section class="estatisticasConsulta">
-    {%if eResult > 1%}
-      <p>{{eResult}} resultados em {{temp}} segundos.</p>
-    {%elif eResult == 1%}
-      <p>{{eResult}} resultado em {{temp}} segundos.</p>
+    {%if qtdAlunos > 1%}
+      <p>{{qtdAlunos}} resultados em {{temp}} segundos.</p>
+    {%elif qtdAlunos == 1%}
+      <p>{{qtdAlunos}} resultado em {{temp}} segundos.</p>
     {%else%}
       <p></p>
     {%endif%}
