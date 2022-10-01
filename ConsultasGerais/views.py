@@ -52,7 +52,7 @@ def consultaDetalhesEscolaresAlunos(cpf) -> tuple | None:
             'ON(cadastros_aluno.cpf=cadastros_matriculaaluno.cpf) INNER JOIN cadastros_curso '
             'ON(cadastros_matriculaaluno.cod_c=cadastros_curso.cod_c)WHERE cadastros_aluno.cpf=%s '
             'GROUP BY nome_aluno, sobrenome_aluno, dt_nasc, cadastros_curso.cod_c, nome_c, '
-            'numero_matricula, dt_matricula ORDER BY nome_aluno', (cpf,)
+            'numero_matricula, dt_matricula ORDER BY nome_aluno', (cpf, )
         )
         return cursor.fetchone()
 
@@ -68,7 +68,7 @@ def consultaDetalhesEscolaresCurso(codCurso) -> list[tuple]:
             'ON(cadastros_grade.cod_disciplina=cadastros_disciplina.cod_d) INNER JOIN cadastros_professor '
             'ON(cadastros_disciplina.matricula_prof=cadastros_professor.matricula_prof) WHERE cadastros_matriculaaluno.cod_c=%s'
             'GROUP BY cadastros_curso.cod_c, nome_c, cod_grade, cod_d, nome_disciplina, cadastros_professor.matricula_prof, '
-            'sobrenome_prof, nome_prof ORDER BY nome_prof', (codCurso,)
+            'sobrenome_prof, nome_prof ORDER BY nome_prof', (codCurso, )
         )
         return cursor.fetchall()
 
@@ -78,7 +78,7 @@ def consultaMateriasCurso(codCurso) -> list[tuple]:
         cursor.execute(
             "SELECT nome_disciplina FROM cadastros_grade, cadastros_disciplina,"
             "cadastros_curso WHERE cadastros_grade.cod_curso=%s AND cadastros_grade.cod_disciplina=cadastros_disciplina.cod_d AND "
-            "cadastros_grade.cod_curso=cadastros_curso.cod_c order by nome_disciplina", (codCurso,)
+            "cadastros_grade.cod_curso=cadastros_curso.cod_c order by nome_disciplina", (codCurso, )
         )
         return cursor.fetchall()
 
