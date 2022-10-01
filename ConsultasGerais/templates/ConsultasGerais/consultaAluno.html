@@ -10,7 +10,7 @@
         <th>Data Nasc.</th>
         <th>Cod/Endereço</th>
       </tr>
-      {%for dado in dadosJuntados%}
+      {%for dado in respPesquisa%}
         <tr>
           <form action="{%url 'detalhes-aluno'%}" method="get">
           <td><input type="hidden" name="cpf" value="{{dado.cpf}}"><button type="submit" id="btnConsult">
@@ -26,17 +26,17 @@
     <section class="estatisticasConsulta">
       <h1>Estatísticas</h1>
       <article >
-        <p>Número Total Alunos: {{estatAlunoT}}</p>
-        <p>Número de alunos exibidos: {{estatAlunoP}}</p>
-        <p>Idade média dos Alunos: {{idadeMedia}}</p>
-        <p>{{menor18}} Alunos menores de 18 anos.</p>
-        <p>{{entre18e30}} Alunos entre 18 e 30 anos.</p>
-        <p>{{acima30}} Alunos acima de 30 anos.</p>
-        {%if nResult > 1%}
-          <p>{{nResult}} resultados em {{temp}} segundos.</p>
-        {%elif nResult == 1%}
+        <p>Número Total Alunos: {{qtdTotalAlunos}}</p>
+        <p>Número de alunos exibidos: {{qtdPPaginaAluno}}</p>
+        <p>Idade média dos Alunos: {{consultaIdadeMedia}}</p>
+        <p>{{consultaMenor18}} Alunos menores de 18 anos.</p>
+        <p>{{consultaEntre18E30}} Alunos entre 18 e 30 anos.</p>
+        <p>{{consultaAcima30}} Alunos acima de 30 anos.</p>
+        {%if qtdTotalAlunos > 1%}
+          <p>{{qtdTotalAlunos}} resultados em {{temporizador}} segundos.</p>
+        {%elif qtdTotalAlunos == 1%}
           <h1>Estatísticas:</h1>
-          <p>{{nResult}} resultado em {{temp}} segundos.</p>
+          <p>{{qtdTotalAlunos}} resultado em {{temporizador}} segundos.</p>
         {%else%}
           <p></p>
         {%endif%}
@@ -45,8 +45,8 @@
   </section>
   <section class="secaoPaginacao">
     <nav id="paginacao">
-      {%for pagina in dadosJuntados.paginator.page_range%}
-        {%if dadosJuntados.number == pagina%}
+      {%for pagina in respPesquisa.paginator.page_range%}
+        {%if respPesquisa.number == pagina%}
           <div class="caixaDasPaginas linkAtivo">
             <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
           </div>

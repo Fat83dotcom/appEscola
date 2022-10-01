@@ -104,24 +104,26 @@ def consultaEstatisticaCurso(codCurso) -> tuple | None:
 
 @login_required(redirect_field_name='login-system')
 def consultaAluno(request):
+    contexto = {
+        'respPesquisa': '',
+        'qtdTotalAlunos': '',
+        'qtdPPaginaAluno': '',
+        'consultaIdadeMedia': '',
+        'consultaMenor18': '',
+        'consultaEntre18E30': '',
+        'consultaAcima30': '',
+        'temporizador': '',
+        'resultadoTotalEstatistica': '',
+    }
     if request.method == 'GET':
-        # cruza a consulta da tabela Aluno com a chave estrangeira endereco!
-        dadosAluno, log = consultaGeralAlunos(models.Aluno)
-        dadosAluno = paginacao(request, dadosAluno, 20)
-        estatAlunosQtdT = models.Aluno.objects.count()
-        estatAlunosQtdP = len(dadosAluno)
+        contexto['respPesquisa'], contexto['temporizador'] = consultaGeralAlunos(models.Aluno)
+        contexto['respPesquisa'] = paginacao(request, contexto['respPesquisa'], 20)
+        contexto['qtdTotalAlunos'], contexto['qtdPPaginaAluno'] = models.Aluno.objects.count(), len(contexto['respPesquisa'])
+        contexto['consultaIdadeMedia'], contexto['consultaMenor18'], contexto['consultaEntre18E30'], contexto['consultaAcima30'] = \
+            consultaIdadeMedia(), consultaMenor18(), consultaEntre18E30(), consultaAcima30()
+        contexto['temporizador'] = round(contexto['temporizador'], 4)
         messages.success(request, mensagensMaisUsadas['consSuc'])
-        return render(request, 'ConsultasGerais/consultaAluno.html', {
-            'dadosJuntados': dadosAluno,
-            'estatAlunoT': estatAlunosQtdT,
-            'estatAlunoP': estatAlunosQtdP,
-            'idadeMedia': consultaIdadeMedia(),
-            'menor18': consultaMenor18(),
-            'entre18e30': consultaEntre18E30(),
-            'acima30': consultaAcima30(),
-            'temp': round(log, 3),
-            'nResult': estatAlunosQtdT
-        })
+        return render(request, 'ConsultasGerais/consultaAluno.html', contexto)
 
 
 @login_required(redirect_field_name='login-system')
