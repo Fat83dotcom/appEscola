@@ -26,10 +26,10 @@ def verificadorNumerico(string: str) -> bool:
 
 def mensagens(request, tipo: str, mensagem: str):
     '''
-        Parametro Tipo:
-            'suc' -> Para mensagens de cadastros com sucesso.
-            'war' -> Para mensagens de avisos.
-            'err' -> Para mensagens de cadastros com erro.
+    Parametro Tipo:
+    'suc' -> Para mensagens de cadastros com sucesso.
+    'war' -> Para mensagens de avisos.
+    'err' -> Para mensagens de cadastros com erro.
     '''
     if tipo == 'suc':
         return messages.success(request, mensagem)
