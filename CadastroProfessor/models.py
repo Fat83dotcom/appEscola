@@ -7,7 +7,7 @@ from django import forms
 class FormProfessor(ModelForm):
     class Meta:
         model = Professor
-        fields = ['nome_prof', 'sobrenome_prof']
+        fields = ['nome_prof', 'sobrenome_prof',  ]
         labels = {
             'nome_prof': _('Nome Professor:'),
             'sobrenome_prof': _('Sobrenome Professor:')
