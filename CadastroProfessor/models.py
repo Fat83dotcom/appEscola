@@ -28,5 +28,4 @@ class FormProfessor(ModelForm):
             'data_contrato': forms.DateInput(attrs={
                 'placeholder': 'DD/MM/AAAA',
             })
-
         }

@@ -140,7 +140,18 @@ def consultaCurso(request):
 
 @login_required(redirect_field_name='login-system')
 def consultaProfessor(request):
-    return render(request, 'ConsultasGerais/consultaProfessor.html')
+    contexto = {
+        'respPesquisa': '',
+        'qtdProfessores': '',
+        'temporizador': '',
+    }
+    if request.method != 'GET':
+        return render(request, 'ConsultasGerais/consultaProfessor.html')
+    else:
+        contexto['respPesquisa'], contexto['temporizador'] = consultaGeral(models.Professor, 'departamento', 'nome_prof')
+        contexto['qtdProfessores'] = models.Professor.objects.count()
+        contexto['temporizador'] = round(contexto['temporizador'], 4)
+        return render(request, 'ConsultasGerais/consultaProfessor.html', contexto)
 
 
 @login_required(redirect_field_name='login-system')

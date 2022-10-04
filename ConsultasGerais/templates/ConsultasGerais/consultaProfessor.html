@@ -5,54 +5,40 @@
     <section id="consultaScroll">
         <table class="tabela">
           <tr>
-            <th>CPF</th>
+            <th>Matrícula Professor</th>
             <th>Nome</th>
             <th>Sobrenome</th>
-            <th>Data Nasc.</th>
-            <th>Cod/Endereço</th>
+            <th>Número Contrato</th>
+            <th>Data Contrato</th>
+            <th>Cod/Departamento</th>
           </tr>
           {%for dado in respPesquisa%}
             <tr>
               <form action="{%url 'detalhes-aluno'%}" method="get">
-              <td><input type="hidden" name="cpf" value="{{dado.cpf}}"><button type="submit" id="btnConsult">
-              {{dado.cpf}}</button></td>
+              <td><input type="hidden" name="cpf" value="{{dado.matricula_prof}}"><button type="submit" id="btnConsult">
+                {{dado.matricula_prof}}</button></td>
               </form>
-              <td>{{dado.nome_aluno}}</td>
-              <td>{{dado.sobrenome_aluno}}</td>
-              <td>{{dado.dt_nasc}}</td>
-              <td>{{dado.endereco}}</td>
+              <td>{{dado.nome_prof}}</td>
+              <td>{{dado.sobrenome_prof}}</td>
+              <td>{{dado.n_contrato}}</td>
+              <td>{{dado.data_contrato}}</td>
+              <td>{{dado.departamento}}</td>
             </tr>
           {%endfor%}
         </table>
         <section class="estatisticasConsulta">
           <h1>Estatísticas</h1>
           <article >
-            <p>Número Total Professores: {{qtdTotalAlunos}}</p>
-            <p>Número de alunos exibidos: {{qtdPPaginaAluno}}</p>
-            {%if qtdTotalAlunos > 1%}
-              <p>{{qtdTotalAlunos}} resultados em {{temporizador}} segundos.</p>
-            {%elif qtdTotalAlunos == 1%}
-              <p>{{qtdTotalAlunos}} resultado em {{temporizador}} segundos.</p>
+            <p>Número Total Professores: {{qtdProfessores}}</p>
+            {%if qtdProfessores > 1%}
+              <p>{{qtdProfessores}} resultados em {{temporizador}} segundos.</p>
+            {%elif qtdProfessores == 1%}
+              <p>{{qtdProfessores}} resultado em {{temporizador}} segundos.</p>
             {%else%}
               <!-- <p></p> -->
             {%endif%}
           </article>
         </section>
-    </section>
-    <section class="secaoPaginacao">
-        <nav id="paginacao">
-          {%for pagina in respPesquisa.paginator.page_range%}
-            {%if respPesquisa.number == pagina%}
-              <div class="caixaDasPaginas linkAtivo">
-                <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
-              </div>
-            {%else%}
-              <div class="caixaDasPaginas">
-                <a class="linkPaginacao" href="?p={{pagina}}">{{pagina}}</a>
-              </div>
-            {%endif%} 
-          {%endfor%}
-        </nav>
     </section>
 </main>
 {%endblock%}
