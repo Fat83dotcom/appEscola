@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Aluno, Curso, Disciplina, Departamento, Professor
-from .models import Endereco, MatriculaAluno, Grade, Contrato, Prerequisito
+from .models import Endereco, MatriculaAluno, Grade, Prerequisito
 
 
 class ProfessorAdmin(admin.ModelAdmin):
@@ -42,6 +42,5 @@ admin.site.register(Departamento, DepartamentoAdmin)
 admin.site.register(Endereco, EnderecoAdmin)
 admin.site.register(MatriculaAluno, MatAlunoAdmin)
 admin.site.register(Grade)
-admin.site.register(Contrato)
 admin.site.register(Professor, ProfessorAdmin)
 admin.site.register(Prerequisito)
