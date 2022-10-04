@@ -113,6 +113,9 @@ class Professor(models.Model):
     matricula_prof = models.AutoField(primary_key=True)
     nome_prof = models.CharField(max_length=255)
     sobrenome_prof = models.CharField(max_length=255)
+    nContrato = models.CharField(max_length=10, null=True)
+    data_contrato = models.DateField(null=True)
+    departamento = models.ForeignKey(Departamento, models.DO_NOTHING, null=True, db_column='cod_dep')
 
     def __str__(self) -> str:
         return f'{self.matricula_prof} / {self.nome_prof}'
