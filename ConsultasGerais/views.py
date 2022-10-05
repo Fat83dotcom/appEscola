@@ -101,6 +101,23 @@ def consultaEstatisticaCurso(codCurso) -> tuple | None:
         return (nAlunos, nDisciplinas, departamento)
 
 
+@log
+def consultaDetalhesProfessor(codProfessor):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            'SELECT nome_disciplina FROM cadastros_disciplina WHERE matricula_prof=%s', (codProfessor, )
+        )
+        disciplinas = cursor.fetchall()
+
+        cursor.execute(
+            'SELECT matricula_prof, nome_prof, sobrenome_prof FROM cadastros_professor '
+            'WHERE matricula_prof=%s', (codProfessor, )
+        )
+        dadosProfessor = cursor.fetchall()
+
+        return dadosProfessor, disciplinas
+
+
 @login_required(redirect_field_name='login-system')
 def consultaAluno(request):
     contexto = {
@@ -213,3 +230,30 @@ def detalhesCurso(request):
         except Exception as erro:
             mensagens(request, 'err', f'{mensagensMaisUsadas["consFal"]}... {erro}')
             return redirect('consulta-curso')
+
+
+@login_required(redirect_field_name='login-system')
+def detalhesProfessor(request):
+    if request.method != 'GET':
+        return render(request, 'ConsultasGerais/detalhesProfessor.html')
+    else:
+        try:
+            contexto = {
+                'respPesquisaProf': '',
+                'respPesquisaMat': '',
+                'temporizador': '',
+            }
+            codProf = request.GET.get('matProf')
+            recebeDados, contexto['temporizador'] = \
+                consultaDetalhesProfessor(codProf)
+            contexto['respPesquisaProf'], contexto['respPesquisaMat'] = recebeDados[0], recebeDados[1]
+            contexto['temporizador'] = round(contexto['temporizador'], 3)
+            mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
+            return render(request, 'ConsultasGerais/detalhesProfessor.html', contexto)
+        except Exception as erro:
+            if 'list index out of range' in str(erro):
+                mensagens(request, 'err', f'{mensagensMaisUsadas["consFal"]}, Professor não associado a matéria !')
+                return render(request, 'ConsultasGerais/detalhesProfessor.html', contexto)
+            else:
+                mensagens(request, 'err', f'{mensagensMaisUsadas["consFal"]}, {erro}')
+                return render(request, 'ConsultasGerais/detalhesProfessor.html', contexto)

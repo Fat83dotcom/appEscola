@@ -1,0 +1,45 @@
+{%extends 'base.html'%}
+{%block conteudo%}
+<main>
+  {% include 'parciais/_mensagens.html'%}
+  <h1 style="font-size: 24px">Detalhes do Professor: {{nomeProf}} {{sNomeProf}}</h1>
+  <section id="consultaScroll">
+    <table class="tabela">
+      {%if respPesquisaProf|length == 0%}
+      {%else%}
+        <tr>
+          <th>Matrícula</th>
+          <th>Nome</th>
+          <th>Sobrenome</th>
+        </tr>
+        {%for tupla in respPesquisaProf%}
+          <tr>
+            {%for dado in tupla%}
+              <td>{{dado}}</td>
+            {%endfor%}
+          </tr> 
+        {%endfor%}
+      </table>
+      <table class="tabela">
+        <tr>
+          <th>Matérias Lecionadas</th>
+        </tr>
+        {%for tupla in respPesquisaMat%}
+          <tr>
+            {%for dado in tupla%}
+              <td>{{dado}}</td>
+            {%endfor%}
+          </tr>
+        {%endfor%}
+      {%endif%}
+    </table>
+  </section>
+  <section class="estatisticasConsulta">
+    {%if respPesquisaProf|length == 0%}
+      <p>0 resultado.</p>
+    {%else%}
+      <p>1 resultado em {{temporizador}} segundos.</p>
+    {%endif%}
+  </section>
+</main>
+{%endblock%}

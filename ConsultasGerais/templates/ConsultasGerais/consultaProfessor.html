@@ -14,8 +14,8 @@
           </tr>
           {%for dado in respPesquisa%}
             <tr>
-              <form action="{%url 'detalhes-aluno'%}" method="get">
-              <td><input type="hidden" name="cpf" value="{{dado.matricula_prof}}"><button type="submit" id="btnConsult">
+              <form action="{%url 'detalhes-professor'%}" method="get">
+              <td><input type="hidden" name="matProf" value="{{dado.matricula_prof}}"><button type="submit" id="btnConsult">
                 {{dado.matricula_prof}}</button></td>
               </form>
               <td>{{dado.nome_prof}}</td>
