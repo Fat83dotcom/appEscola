@@ -58,7 +58,7 @@ def consultaDetalhesEscolaresAlunos(cpf) -> tuple | None:
 
 
 @log
-def consultaDetalhesEscolaresCurso(codCurso) -> list[tuple]:
+def consultaDetalhesEscolaresCurso(codCurso: str) -> list[tuple]:
     with connection.cursor() as cursor:
         cursor.execute(
             'SELECT cadastros_curso.cod_c, nome_c, cod_grade, cod_d, nome_disciplina, cadastros_professor.matricula_prof, '
@@ -73,7 +73,7 @@ def consultaDetalhesEscolaresCurso(codCurso) -> list[tuple]:
         return cursor.fetchall()
 
 
-def consultaMateriasCurso(codCurso) -> list[tuple]:
+def consultaMateriasCurso(codCurso: str) -> list[tuple]:
     with connection.cursor() as cursor:
         cursor.execute(
             "SELECT nome_disciplina FROM cadastros_grade, cadastros_disciplina,"
@@ -83,7 +83,7 @@ def consultaMateriasCurso(codCurso) -> list[tuple]:
         return cursor.fetchall()
 
 
-def consultaEstatisticaCurso(codCurso) -> tuple | None:
+def consultaEstatisticaCurso(codCurso: str) -> tuple | None:
     with connection.cursor() as cursor:
         cursor.execute(
             'SELECT COUNT(cpf) FROM cadastros_matriculaaluno WHERE cod_c=%s', (codCurso, )
@@ -102,7 +102,7 @@ def consultaEstatisticaCurso(codCurso) -> tuple | None:
 
 
 @log
-def consultaDetalhesProfessor(codProfessor):
+def consultaDetalhesProfessor(codProfessor: str):
     with connection.cursor() as cursor:
         cursor.execute(
             'SELECT nome_disciplina FROM cadastros_disciplina WHERE matricula_prof=%s', (codProfessor, )
@@ -118,7 +118,7 @@ def consultaDetalhesProfessor(codProfessor):
         return dadosProfessor, disciplinas
 
 
-def consultaQtdAlunoPProfessor(codProfessor) -> int:
+def consultaQtdAlunoPProfessor(codProfessor: str) -> int:
     with connection.cursor() as cursor:
         cursor.execute(
             'SELECT COUNT(DISTINCT cpf) FROM  cadastros_matriculaaluno INNER JOIN cadastros_grade '
@@ -256,11 +256,11 @@ def detalhesProfessor(request):
                 'qtdAlunosPProfessor': ''
             }
             codProf = request.GET.get('matProf')
+            contexto['qtdAlunosPProfessor'] = consultaQtdAlunoPProfessor(codProf)
             recebeDados, contexto['temporizador'] = \
                 consultaDetalhesProfessor(codProf)
             contexto['respPesquisaProf'], contexto['respPesquisaMat'] = recebeDados[0], recebeDados[1]
             contexto['temporizador'] = round(contexto['temporizador'], 3)
-            contexto['qtdAlunosPProfessor'] = consultaQtdAlunoPProfessor(codProf)
             mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
             return render(request, 'ConsultasGerais/detalhesProfessor.html', contexto)
         except Exception as erro:
@@ -268,5 +268,5 @@ def detalhesProfessor(request):
                 mensagens(request, 'err', f'{mensagensMaisUsadas["consFal"]}, Professor não associado a matéria !')
                 return render(request, 'ConsultasGerais/detalhesProfessor.html', contexto)
             else:
-                mensagens(request, 'err', f'{mensagensMaisUsadas["consFal"]}, {erro}')
+                mensagens(request, 'err', f'{mensagensMaisUsadas["consFal"]}, {str(erro)[:20]}')
                 return render(request, 'ConsultasGerais/detalhesProfessor.html', contexto)
