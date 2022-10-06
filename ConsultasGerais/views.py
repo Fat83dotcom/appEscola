@@ -118,6 +118,17 @@ def consultaDetalhesProfessor(codProfessor):
         return dadosProfessor, disciplinas
 
 
+def consultaQtdAlunoPProfessor(codProfessor) -> int:
+    with connection.cursor() as cursor:
+        cursor.execute(
+            'SELECT COUNT(DISTINCT cpf) FROM  cadastros_matriculaaluno INNER JOIN cadastros_grade '
+            'ON(cod_c=cod_curso) INNER JOIN cadastros_disciplina ON(cod_disciplina=cod_d) '
+            'INNER JOIN cadastros_professor ON(cadastros_disciplina.matricula_prof=cadastros_professor.matricula_prof) '
+            'WHERE cadastros_professor.matricula_prof=%s', (codProfessor, )
+        )
+        return int(cursor.fetchone()[0])
+
+
 @login_required(redirect_field_name='login-system')
 def consultaAluno(request):
     contexto = {
@@ -242,12 +253,14 @@ def detalhesProfessor(request):
                 'respPesquisaProf': '',
                 'respPesquisaMat': '',
                 'temporizador': '',
+                'qtdAlunosPProfessor': ''
             }
             codProf = request.GET.get('matProf')
             recebeDados, contexto['temporizador'] = \
                 consultaDetalhesProfessor(codProf)
             contexto['respPesquisaProf'], contexto['respPesquisaMat'] = recebeDados[0], recebeDados[1]
             contexto['temporizador'] = round(contexto['temporizador'], 3)
+            contexto['qtdAlunosPProfessor'] = consultaQtdAlunoPProfessor(codProf)
             mensagens(request, 'suc', mensagensMaisUsadas['consSuc'])
             return render(request, 'ConsultasGerais/detalhesProfessor.html', contexto)
         except Exception as erro:
