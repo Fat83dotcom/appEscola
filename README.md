@@ -26,4 +26,6 @@ fernando.quimic@gmail.com
 
 Status do Projeto : 
 
--> Em desenvolvimento em 11/09/2022
+-> Finalizado em 7/10/2022
+
+
